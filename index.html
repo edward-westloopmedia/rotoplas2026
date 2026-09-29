@@ -1,0 +1,1203 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harborline Expo 2026 — Floor map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --floor:#E6EBEF; --hall:#F4F6F8; --paper:#FFFFFF; --ink:#15202B; --muted:#5B6875;
+  --line:#D3DAE1; --table:#FFFFFF; --table-stroke:#C5CFD8; --primary:#1E56D8;
+  --primary-soft:#DCE6FF; --on-primary:#FFFFFF; --pin:#FFB21E; --shadow:0 6px 24px rgba(21,32,43,.14);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --floor:#0F151B; --hall:#151D25; --paper:#1B242D; --ink:#E7EDF2; --muted:#93A1AE;
+    --line:#2B3743; --table:#202B35; --table-stroke:#364552; --primary:#5B8CFF;
+    --primary-soft:#23345C; --on-primary:#0B1530; --shadow:0 6px 24px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --floor:#0F151B; --hall:#151D25; --paper:#1B242D; --ink:#E7EDF2; --muted:#93A1AE;
+  --line:#2B3743; --table:#202B35; --table-stroke:#364552; --primary:#5B8CFF;
+  --primary-soft:#23345C; --on-primary:#0B1530; --shadow:0 6px 24px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;overflow:hidden;background:var(--floor);color:var(--ink);
+  font-family:'Onest',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+
+/* Map */
+#map{position:fixed;inset:0;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#map.dragging{cursor:grabbing}
+#map svg{width:100%;height:100%;display:block}
+.hall{fill:var(--hall);stroke:var(--line);stroke-width:2}
+.entrance{fill:var(--muted);font-size:13px;font-weight:500;text-anchor:middle}
+.door{stroke:var(--primary);stroke-width:4;stroke-linecap:round}
+.wall{stroke:var(--muted);stroke-width:6;stroke-linecap:round}
+.theater{fill:var(--floor);stroke:var(--line);stroke-width:2}
+.theater-label{fill:var(--muted);font-size:16px;font-weight:600;text-anchor:middle}
+.pillar{fill:var(--muted)}
+.face rect{fill:var(--table);transition:fill .2s}
+.edge{fill:none;stroke:var(--table-stroke);stroke-width:1.5;stroke-linecap:square;transition:stroke .2s}
+.code{font-size:12px;font-weight:700;fill:var(--ink)}
+.nm{font-size:11px;fill:var(--muted)}
+.avail .face rect{fill:var(--hall)}
+.avail .edge{stroke-dasharray:5 4}
+.avail .code,.avail .nm{fill:var(--muted);font-weight:500}
+.tbl{cursor:pointer;transition:opacity .2s}
+.tbl.match .face rect{fill:var(--primary-soft)}
+.tbl.match .edge,.tbl.hover .edge{stroke:var(--primary);stroke-width:2.5}
+.tbl.sel .face rect{fill:var(--primary)}
+.tbl.sel .edge{stroke:var(--primary);stroke-width:2.5}
+.tbl.sel text{fill:var(--on-primary)}
+svg.filtered .tbl:not(.match):not(.sel),svg.filtered .avail{opacity:.4}
+#pin{pointer-events:none;transition:opacity .2s}
+#pin .body{fill:var(--pin);stroke:#fff;stroke-width:2}
+#pin .ring{fill:var(--pin);opacity:.35;transform-box:fill-box;transform-origin:center;animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{from{transform:scale(.4);opacity:.5}to{transform:scale(1.6);opacity:0}}
+
+/* Search */
+.search{position:fixed;z-index:20;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 12px);max-width:560px;margin:0 auto}
+.field{display:flex;align-items:center;gap:8px;height:52px;padding:0 8px 0 16px;background:var(--paper);border-radius:26px;box-shadow:var(--shadow)}
+.field svg{flex:none;color:var(--muted)}
+.field input{flex:1;min-width:0;height:100%;border:0;background:none;color:var(--ink);font:inherit;font-size:16px;outline:none}
+.field input::placeholder{color:var(--muted)}
+.field input::-webkit-search-cancel-button{display:none}
+.clear{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.clear[hidden]{display:none}
+.suggest{margin-top:8px;background:var(--paper);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.suggest[hidden]{display:none}
+.suggest button,.row{display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;text-align:left}
+.suggest button + button{border-top:1px solid var(--line)}
+.suggest button:hover,.suggest button.active,.row:hover{background:var(--floor)}
+.suggest .empty{padding:14px 16px;color:var(--muted);font-size:14px}
+.badge{flex:none;min-width:40px;height:28px;padding:0 8px;border-radius:8px;background:var(--primary-soft);color:var(--primary);font-weight:700;font-size:13px;display:grid;place-items:center}
+.who{display:flex;flex-direction:column;min-width:0}
+.who strong{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who span{font-size:13px;color:var(--muted)}
+
+/* Map controls */
+.controls{position:fixed;z-index:15;right:12px;bottom:calc(var(--sheet-h,40vh) + 12px);display:flex;flex-direction:column;gap:8px;transition:bottom .28s ease}
+.controls.nodelay{transition:none}
+.controls button{width:44px;height:44px;border-radius:12px;background:var(--paper);box-shadow:var(--shadow);display:grid;place-items:center;font-size:22px;font-weight:500}
+
+/* Bottom sheet */
+.sheet{position:fixed;z-index:18;left:0;right:0;bottom:0;max-width:640px;margin:0 auto;height:var(--sheet-h,40vh);
+  background:var(--paper);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(21,32,43,.12);display:flex;flex-direction:column;
+  transition:height .28s ease;padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet.nodelay{transition:none}
+.grab{flex:none;padding:10px 0 6px;touch-action:none;cursor:grab}
+.grab i{display:block;width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto}
+.sheet-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 20px 24px}
+.sheet h2{font-size:24px;line-height:1.2;font-weight:700;margin:12px 0 4px;letter-spacing:-.01em}
+.lead{margin:0 0 12px;color:var(--muted);font-size:14px}
+.list .row{padding:12px 4px;border-bottom:1px solid var(--line)}
+.d-top{display:flex;align-items:center;justify-content:space-between}
+.d-top .badge{height:32px;font-size:15px}
+.link{color:var(--primary);font-weight:600;font-size:14px;padding:8px 0}
+.cat{display:inline-block;margin:0 0 16px;padding:4px 10px;border-radius:999px;background:var(--floor);font-size:13px;font-weight:500;color:var(--muted)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 16px}
+.facts div{background:var(--floor);border-radius:12px;padding:10px 12px}
+.facts dt{font-size:12px;color:var(--muted);margin-bottom:2px}
+.facts dd{margin:0;font-weight:600;font-size:15px}
+.tagline{margin:0 0 12px;font-size:17px;font-weight:500;line-height:1.35}
+.desc{margin:0 0 16px;line-height:1.55;max-width:62ch}
+.contact{display:flex;flex-direction:column;margin:0 0 20px;border:1px solid var(--line);border-radius:12px}
+.contact a{display:flex;align-items:center;gap:12px;padding:12px 14px;color:var(--ink);text-decoration:none}
+.contact a + a{border-top:1px solid var(--line)}
+.contact svg{flex:none;color:var(--primary)}
+.contact span{display:flex;flex-direction:column;font-weight:600;font-size:15px}
+.contact small{font-weight:400;font-size:12px;color:var(--muted)}
+.primary{width:100%;height:48px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600}
+/* Hover tooltip (mouse only) */
+.tip{position:fixed;left:0;top:0;z-index:30;pointer-events:none;display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;
+  background:var(--paper);border-radius:10px;box-shadow:var(--shadow);font-size:14px;font-weight:600;white-space:nowrap}
+.tip[hidden]{display:none}
+
+/* List button in the search bar (tablet and laptop only) */
+.listbtn{display:none;flex:none;width:36px;height:36px;border-radius:50%;place-items:center;color:var(--muted)}
+.listbtn:hover{background:var(--floor)}
+.listbtn.on{background:var(--primary-soft);color:var(--primary)}
+
+/* Tablet: floating card panel on the left */
+@media (min-width: 700px){
+  .grab{display:none}
+  .listbtn{display:grid}
+  .field{padding-left:8px}
+  .field .sicon{order:3;margin-right:8px}
+  .sheet{left:12px;top:12px;bottom:12px;right:auto;width:360px;max-width:none;margin:0;height:auto;border-radius:16px;
+    box-shadow:var(--shadow);padding-top:72px;transition:transform .28s ease,visibility .28s}
+  .panel-closed .sheet{transform:translateX(calc(-100% - 12px));visibility:hidden}
+  .search{left:24px;right:auto;top:24px;width:336px;max-width:none;margin:0}
+  body:not(.panel-closed) .field{box-shadow:none;background:var(--floor)}
+  .controls{bottom:24px;right:24px}
+}
+/* Laptop and desktop: full-height panel docked on the left */
+@media (min-width: 1100px){
+  .sheet{left:0;top:0;bottom:0;width:400px;border-radius:0;padding-top:84px;box-shadow:1px 0 0 var(--line),4px 0 16px rgba(21,32,43,.08)}
+  .panel-closed .sheet{transform:translateX(-100%)}
+  .search{left:16px;top:16px;width:368px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  #pin .ring{animation:none}
+  .sheet,.controls,.tbl rect,.tbl{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div id="map" aria-label="Exhibition hall floor map"></div>
+
+<div class="search" role="search">
+  <div class="field">
+    <button class="listbtn" id="listbtn" aria-label="Show exhibitor list" aria-expanded="false" aria-controls="sheet">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <svg class="sicon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Search exhibitors or booths" autocomplete="off" aria-label="Search exhibitors" aria-controls="suggest">
+    <button class="clear" id="clear" aria-label="Clear search" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="suggest" id="suggest" hidden></div>
+</div>
+
+<div class="controls" id="controls">
+  <button id="zin" aria-label="Zoom in">+</button>
+  <button id="zout" aria-label="Zoom out">&minus;</button>
+  <button id="fit" aria-label="Show whole hall">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  </button>
+</div>
+
+<section class="sheet" id="sheet" aria-label="Table details">
+  <div class="grab" id="grab" role="button" tabindex="0" aria-label="Resize panel"><i></i></div>
+  <div class="sheet-body" id="body"></div>
+</section>
+
+<div class="tip" id="tip" hidden></div>
+
+<script>
+// ---- Expo data: the hall and every exhibitor ----
+const EXPO = {
+  hall: {
+    name: "Hall A",
+    // Floor plan, one cell per 10' x 10' booth square, front of the hall at the bottom.
+    // A number is a booth; 0 is an aisle or open floor. Aisles are one booth wide.
+    // Numbering follows the aisles: the hundreds digit is the aisle, evens on its left
+    // side, odds on its right, counting up from the front of the hall to the back.
+    //       Isl 1       Isl 2        Isl 3        Isl 4        Isl 5       Wall
+    grid: [
+      [  0,   0,   0, 227, 326,   0, 327, 426,   0, 427, 526,   0, 527, 626,   0, 627],
+      [  0,   0,   0, 225, 324,   0, 325, 424,   0, 425, 524,   0, 525, 624,   0, 625],
+      [  0,   0,   0, 223, 322,   0, 323, 422,   0, 423, 522,   0, 523, 622,   0, 623],
+      [121, 220,   0, 221, 320,   0, 321, 420,   0, 421, 520,   0, 521, 620,   0, 621],
+      [119, 218,   0, 219, 318,   0, 319, 418,   0, 419, 518,   0, 519, 618,   0,   0],
+      [117, 216,   0, 217, 316,   0,   0,   0,   0, 417, 516,   0, 517, 616,   0,   0],
+      [115, 214,   0, 215, 314,   0, 315, 414,   0, 415, 514,   0, 515, 614,   0, 615],
+      [113, 212,   0, 213, 312,   0, 313, 412,   0, 413, 512,   0, 513, 612,   0, 613],
+      [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 611],   // cross aisle
+      [  0, 208,   0, 209, 308,   0, 309, 408,   0, 409, 508,   0, 509, 608,   0, 609],
+      [  0, 206,   0, 207, 306,   0, 307, 406,   0, 407, 506,   0, 507, 606,   0, 607],
+      [  0, 204,   0, 205, 304,   0, 305, 404,   0, 405, 504,   0, 505, 604,   0, 605],
+      [  0, 202,   0, 203, 302,   0, 303, 402,   0, 403, 502,   0, 503, 602,   0, 603],
+      [  0, 200,   0, 201, 300,   0, 301, 400,   0, 401, 500,   0, 501, 600,   0,   0],
+    ],
+    theater: { col: 0, row: 0, cols: 2, rows: 3, label: "Theater" },
+    // Building pillars, in grid units measured from the top-left corner of the floor
+    pillars: [[7, 5.5], [15.5, 5.5], [1, 14.35], [4, 14.35], [7, 14.35], [10, 14.35], [13, 14.35], [15.5, 14.35]]
+  },
+  // booths: every booth number the exhibitor occupies. Booths of one exhibitor must
+  // share a side (horizontal or vertical neighbors), never only a corner.
+  // Booths in the grid that no exhibitor lists are shown as Available.
+  exhibitors: {
+    "loam-carbon": {
+      name: "Loam Carbon", category: "Fintech", booths: [113],
+      tagline: "Carbon accounting your auditor accepts",
+      description: "Loam Carbon makes money tasks for growing businesses simpler and faster. Stop by for a live demo of their newest release.",
+      website: "loamcarbon.example", contact: "+1 (312) 555-0100", hours: "9:00–17:30"
+    },
+    "lumen-analytics": {
+      name: "Lumen Analytics", category: "AI & data", booths: [115],
+      tagline: "Your numbers, finally explained",
+      description: "Lumen Analytics builds models that explain their reasoning in plain language. Ask about their attendee discount, valid through Friday.",
+      website: "lumenanalytics.example", contact: "+1 (312) 555-0101", hours: "9:00–17:30"
+    },
+    "nectar-media": {
+      name: "Nectar Media", category: "Media", booths: [117],
+      tagline: "Short videos for busy brands",
+      description: "Nectar Media produces content from first idea to final cut. Their founders are at the booth all afternoon.",
+      website: "nectarmedia.example", contact: "+1 (312) 555-0102", hours: "10:00–18:00"
+    },
+    "delta-water-co": {
+      name: "Delta Water Co.", category: "Hardware", booths: [121, 220],
+      tagline: "Leak alerts before the ceiling drips",
+      description: "Delta Water Co. turns lab prototypes into devices ready for production. Book a 15-minute meeting at the booth.",
+      website: "deltawaterco.example", contact: "+1 (312) 555-0103", hours: "9:30–16:00"
+    },
+    "glade-instruments": {
+      name: "Glade Instruments", category: "Hardware", booths: [200],
+      tagline: "Lab scales accurate to a grain of salt",
+      description: "Glade Instruments builds sensors and machines for everyday work. Grab a sample and a short walkthrough at the booth.",
+      website: "gladeinstruments.example", contact: "+1 (312) 555-0104", hours: "9:00–13:00"
+    },
+    "harbor-health-tech": {
+      name: "Harbor Health Tech", category: "Health", booths: [201, 203, 300],
+      tagline: "Clinic scheduling without the phone tag",
+      description: "Harbor Health Tech builds tools with clinicians to make care simpler for patients and staff. The team is looking for pilot partners this year.",
+      website: "harborhealthtech.example", contact: "+1 (312) 555-0105", hours: "9:00–17:30"
+    },
+    "cobalt-signal": {
+      name: "Cobalt Signal", category: "Security", booths: [202],
+      tagline: "Alerts that tell you what to do next",
+      description: "Cobalt Signal finds weak spots before attackers do. Engineers are on hand to answer technical questions.",
+      website: "cobaltsignal.example", contact: "+1 (312) 555-0106", hours: "9:00–17:30"
+    },
+    "brightgate-security": {
+      name: "Brightgate Security", category: "Security", booths: [204],
+      tagline: "Locks for the parts of IT you can't see",
+      description: "Brightgate Security makes security simple enough for teams without a security department. Stop by for a live demo of their newest release.",
+      website: "brightgatesecurity.example", contact: "+1 (312) 555-0107", hours: "10:00–18:00"
+    },
+    "alcove-security": {
+      name: "Alcove Security", category: "Security", booths: [205, 304],
+      tagline: "Visitor sign-in that checks IDs",
+      description: "Alcove Security watches for unusual activity and explains what it means. Ask about their attendee discount, valid through Friday.",
+      website: "alcovesecurity.example", contact: "+1 (312) 555-0108", hours: "9:30–16:00"
+    },
+    "atlas-freight-os": {
+      name: "Atlas Freight OS", category: "Mobility", booths: [206],
+      tagline: "Every pallet, tracked door to door",
+      description: "Atlas Freight OS connects riders, drivers and freight on one platform. Their founders are at the booth all afternoon.",
+      website: "atlasfreightos.example", contact: "+1 (312) 555-0109", hours: "9:00–13:00"
+    },
+    "northwind-robotics": {
+      name: "Northwind Robotics", category: "Hardware", booths: [207, 209],
+      tagline: "Robots that sweep, sort and stack",
+      description: "Northwind Robotics designs devices you can hold, test and take apart. Book a 15-minute meeting at the booth.",
+      website: "northwindrobotics.example", contact: "+1 (312) 555-0110", hours: "9:00–17:30"
+    },
+    "alder-chips": {
+      name: "Alder Chips", category: "Hardware", booths: [208],
+      tagline: "Low-power chips for long-life devices",
+      description: "Alder Chips builds rugged hardware for places software can't reach alone. Grab a sample and a short walkthrough at the booth.",
+      website: "alderchips.example", contact: "+1 (312) 555-0111", hours: "9:00–17:30"
+    },
+    "clearpath-legal": {
+      name: "Clearpath Legal", category: "AI & data", booths: [212],
+      tagline: "Contracts read in minutes",
+      description: "Clearpath Legal helps teams find patterns in data they already collect. The team is looking for pilot partners this year.",
+      website: "clearpathlegal.example", contact: "+1 (312) 555-0112", hours: "10:00–18:00"
+    },
+    "dunlin-health": {
+      name: "Dunlin Health", category: "Health", booths: [213, 312, 314],
+      tagline: "Remote monitoring for heart patients",
+      description: "Dunlin Health makes it easier for patients to follow their treatment at home. Engineers are on hand to answer technical questions.",
+      website: "dunlinhealth.example", contact: "+1 (312) 555-0113", hours: "9:30–16:00"
+    },
+    "heron-insurance": {
+      name: "Heron Insurance", category: "Fintech", booths: [214],
+      tagline: "Cover that pays out in days",
+      description: "Heron Insurance makes billing and payouts easy to track. Stop by for a live demo of their newest release.",
+      website: "heroninsurance.example", contact: "+1 (312) 555-0114", hours: "9:00–13:00"
+    },
+    "fable-frame": {
+      name: "Fable Frame", category: "Media", booths: [215],
+      tagline: "Photo studios you can book by the hour",
+      description: "Fable Frame makes things people watch, play and listen to. Ask about their attendee discount, valid through Friday.",
+      website: "fableframe.example", contact: "+1 (312) 555-0115", hours: "9:00–17:30"
+    },
+    "garnet-travel": {
+      name: "Garnet Travel", category: "Mobility", booths: [216],
+      tagline: "Business trips booked in one message",
+      description: "Garnet Travel plans routes that save fuel and time. Their founders are at the booth all afternoon.",
+      website: "garnettravel.example", contact: "+1 (312) 555-0116", hours: "9:00–17:30"
+    },
+    "willow-fintech": {
+      name: "Willow Fintech", category: "Fintech", booths: [217],
+      tagline: "Savings accounts for freelancers",
+      description: "Willow Fintech moves money across borders at fair, clear rates. Book a 15-minute meeting at the booth.",
+      website: "willowfintech.example", contact: "+1 (312) 555-0117", hours: "10:00–18:00"
+    },
+    "parcel-cloud": {
+      name: "Parcel Cloud", category: "Cloud & infra", booths: [218],
+      tagline: "Hosting that scales while you sleep",
+      description: "Parcel Cloud keeps hosting costs predictable as traffic grows. Grab a sample and a short walkthrough at the booth.",
+      website: "parcelcloud.example", contact: "+1 (312) 555-0118", hours: "9:30–16:00"
+    },
+    "hollow-oak-games": {
+      name: "Hollow Oak Games", category: "Media", booths: [219],
+      tagline: "Cozy games for long evenings",
+      description: "Hollow Oak Games brings studio-quality production to small teams. The team is looking for pilot partners this year.",
+      website: "hollowoakgames.example", contact: "+1 (312) 555-0119", hours: "9:00–13:00"
+    },
+    "copperwire-hosting": {
+      name: "Copperwire Hosting", category: "Cloud & infra", booths: [221],
+      tagline: "Servers with a human on call",
+      description: "Copperwire Hosting runs the infrastructure behind apps that can't go down. Engineers are on hand to answer technical questions.",
+      website: "copperwirehosting.example", contact: "+1 (312) 555-0120", hours: "9:00–17:30"
+    },
+    "sparrow-mesh": {
+      name: "Sparrow Mesh", category: "Cloud & infra", booths: [223],
+      tagline: "Private networks set up in an afternoon",
+      description: "Sparrow Mesh helps engineering teams ship faster with fewer outages. Stop by for a live demo of their newest release.",
+      website: "sparrowmesh.example", contact: "+1 (312) 555-0121", hours: "9:00–17:30"
+    },
+    "watch-me": {
+      name: "Watch Me", category: "Media", booths: [225, 227, 324, 326],
+      tagline: "We watch everything",
+      description: "Watch Me makes live-streaming and recording gear for events of every size, from a single keynote to a full festival. See the multi-camera setup running at the booth.",
+      website: "watchme.example", contact: "+1 (312) 555-0122", hours: "9:00–17:30"
+    },
+    "thistle-care": {
+      name: "Thistle Care", category: "Health", booths: [301],
+      tagline: "Medication reminders that families share",
+      description: "Thistle Care makes it easier for patients to follow their treatment at home. Their founders are at the booth all afternoon.",
+      website: "thistlecare.example", contact: "+1 (312) 555-0123", hours: "9:30–16:00"
+    },
+    "ironbark-infra": {
+      name: "Ironbark Infra", category: "Cloud & infra", booths: [302],
+      tagline: "Data centers built for heat waves",
+      description: "Ironbark Infra gives small teams the reliability tools big companies use. Book a 15-minute meeting at the booth.",
+      website: "ironbarkinfra.example", contact: "+1 (312) 555-0124", hours: "9:00–13:00"
+    },
+    "yarrow-agritech": {
+      name: "Yarrow Agritech", category: "Hardware", booths: [303],
+      tagline: "Greenhouses that water themselves",
+      description: "Yarrow Agritech designs devices you can hold, test and take apart. Grab a sample and a short walkthrough at the booth.",
+      website: "yarrowagritech.example", contact: "+1 (312) 555-0125", hours: "9:00–17:30"
+    },
+    "wren-health": {
+      name: "Wren Health", category: "Health", booths: [306],
+      tagline: "Home care, coordinated",
+      description: "Wren Health shortens the wait between a question and a diagnosis. The team is looking for pilot partners this year.",
+      website: "wrenhealth.example", contact: "+1 (312) 555-0126", hours: "9:00–17:30"
+    },
+    "wisp-robotics": {
+      name: "Wisp Robotics", category: "Hardware", booths: [307],
+      tagline: "Window-cleaning robots for tall buildings",
+      description: "Wisp Robotics makes physical products that are easy to repair. Engineers are on hand to answer technical questions.",
+      website: "wisprobotics.example", contact: "+1 (312) 555-0127", hours: "10:00–18:00"
+    },
+    "fernhill-devices": {
+      name: "Fernhill Devices", category: "Hardware", booths: [308],
+      tagline: "Sensors small enough to forget about",
+      description: "Fernhill Devices turns lab prototypes into devices ready for production. Stop by for a live demo of their newest release.",
+      website: "fernhilldevices.example", contact: "+1 (312) 555-0128", hours: "9:30–16:00"
+    },
+    "eastgate-capital-tools": {
+      name: "Eastgate Capital Tools", category: "Fintech", booths: [309],
+      tagline: "Portfolio reports in plain language",
+      description: "Eastgate Capital Tools makes billing and payouts easy to track. Ask about their attendee discount, valid through Friday.",
+      website: "eastgatecapitaltools.example", contact: "+1 (312) 555-0129", hours: "9:00–13:00"
+    },
+    "tamarack-health": {
+      name: "Tamarack Health", category: "Health", booths: [313],
+      tagline: "Physio plans you can follow at home",
+      description: "Tamarack Health builds tools with clinicians to make care simpler for patients and staff. Their founders are at the booth all afternoon.",
+      website: "tamarackhealth.example", contact: "+1 (312) 555-0130", hours: "9:00–17:30"
+    },
+    "granite-grid": {
+      name: "Granite Grid", category: "Cloud & infra", booths: [315, 414],
+      tagline: "Edge servers in every city",
+      description: "Granite Grid helps engineering teams ship faster with fewer outages. Book a 15-minute meeting at the booth.",
+      website: "granitegrid.example", contact: "+1 (312) 555-0131", hours: "9:00–17:30"
+    },
+    "oakum-systems": {
+      name: "Oakum Systems", category: "Cloud & infra", booths: [316],
+      tagline: "Old software, safely moved to the cloud",
+      description: "Oakum Systems moves legacy systems to the cloud without a big-bang cutover. Grab a sample and a short walkthrough at the booth.",
+      website: "oakumsystems.example", contact: "+1 (312) 555-0132", hours: "10:00–18:00"
+    },
+    "ivy-insight": {
+      name: "Ivy Insight", category: "AI & data", booths: [318, 320, 322],
+      tagline: "Customer calls turned into to-do lists",
+      description: "Ivy Insight automates the reporting work that eats up Monday mornings. The team is looking for pilot partners this year.",
+      website: "ivyinsight.example", contact: "+1 (312) 555-0133", hours: "9:30–16:00"
+    },
+    "sableworks": {
+      name: "Sableworks", category: "Media", booths: [319],
+      tagline: "Sound design for games and film",
+      description: "Sableworks brings studio-quality production to small teams. Engineers are on hand to answer technical questions.",
+      website: "sableworks.example", contact: "+1 (312) 555-0134", hours: "9:00–13:00"
+    },
+    "indigo-rail": {
+      name: "Indigo Rail", category: "Mobility", booths: [321],
+      tagline: "Rail freight booked like a parcel",
+      description: "Indigo Rail moves people and goods more efficiently through busy cities. Stop by for a live demo of their newest release.",
+      website: "indigorail.example", contact: "+1 (312) 555-0135", hours: "9:00–17:30"
+    },
+    "nettle-security": {
+      name: "Nettle Security", category: "Security", booths: [323, 325, 424],
+      tagline: "Phishing tests your team will learn from",
+      description: "Nettle Security finds weak spots before attackers do. Ask about their attendee discount, valid through Friday.",
+      website: "nettlesecurity.example", contact: "+1 (312) 555-0136", hours: "9:00–17:30"
+    },
+    "xylo-sound": {
+      name: "Xylo Sound", category: "Media", booths: [327],
+      tagline: "Music licensing without the paperwork",
+      description: "Xylo Sound produces content from first idea to final cut. Their founders are at the booth all afternoon.",
+      website: "xylosound.example", contact: "+1 (312) 555-0137", hours: "10:00–18:00"
+    },
+    "juno-wearables": {
+      name: "Juno Wearables", category: "Hardware", booths: [400],
+      tagline: "Rings that track sleep quietly",
+      description: "Juno Wearables turns lab prototypes into devices ready for production. Book a 15-minute meeting at the booth.",
+      website: "junowearables.example", contact: "+1 (312) 555-0138", hours: "9:30–16:00"
+    },
+    "dovetail-cloud": {
+      name: "Dovetail Cloud", category: "Cloud & infra", booths: [401],
+      tagline: "Databases that grow with you",
+      description: "Dovetail Cloud gives small teams the reliability tools big companies use. Grab a sample and a short walkthrough at the booth.",
+      website: "dovetailcloud.example", contact: "+1 (312) 555-0139", hours: "9:00–13:00"
+    },
+    "rookline-vision": {
+      name: "Rookline Vision", category: "AI & data", booths: [403],
+      tagline: "Quality checks at line speed",
+      description: "Rookline Vision turns scattered company data into answers people can act on. The team is looking for pilot partners this year.",
+      website: "rooklinevision.example", contact: "+1 (312) 555-0140", hours: "9:00–17:30"
+    },
+    "opal-health": {
+      name: "Opal Health", category: "Health", booths: [404],
+      tagline: "Therapy appointments this week, not next month",
+      description: "Opal Health shortens the wait between a question and a diagnosis. Engineers are on hand to answer technical questions.",
+      website: "opalhealth.example", contact: "+1 (312) 555-0141", hours: "9:00–17:30"
+    },
+    "canopy-health": {
+      name: "Canopy Health", category: "Health", booths: [405, 407],
+      tagline: "Pharmacy delivery within the hour",
+      description: "Canopy Health helps care teams share information safely. Stop by for a live demo of their newest release.",
+      website: "canopyhealth.example", contact: "+1 (312) 555-0142", hours: "10:00–18:00"
+    },
+    "nimbus-ops": {
+      name: "Nimbus Ops", category: "Cloud & infra", booths: [406],
+      tagline: "Fewer pages at 3 a.m.",
+      description: "Nimbus Ops keeps hosting costs predictable as traffic grows. Ask about their attendee discount, valid through Friday.",
+      website: "nimbusops.example", contact: "+1 (312) 555-0143", hours: "9:30–16:00"
+    },
+    "vireo-labs": {
+      name: "Vireo Labs", category: "AI & data", booths: [408],
+      tagline: "Forecasts you can explain to your boss",
+      description: "Vireo Labs makes machine learning practical for teams without data scientists. Their founders are at the booth all afternoon.",
+      website: "vireolabs.example", contact: "+1 (312) 555-0144", hours: "9:00–13:00"
+    },
+    "evergreen-motion": {
+      name: "Evergreen Motion", category: "Mobility", booths: [409],
+      tagline: "Electric vans for city deliveries",
+      description: "Evergreen Motion moves people and goods more efficiently through busy cities. Book a 15-minute meeting at the booth.",
+      website: "evergreenmotion.example", contact: "+1 (312) 555-0145", hours: "9:00–17:30"
+    },
+    "veridian-energy": {
+      name: "Veridian Energy", category: "Hardware", booths: [412],
+      tagline: "Solar that fits on a balcony",
+      description: "Veridian Energy builds rugged hardware for places software can't reach alone. Grab a sample and a short walkthrough at the booth.",
+      website: "veridianenergy.example", contact: "+1 (312) 555-0146", hours: "9:00–17:30"
+    },
+    "vesper-networks": {
+      name: "Vesper Networks", category: "Cloud & infra", booths: [413],
+      tagline: "Wi-Fi that reaches the back room",
+      description: "Vesper Networks moves legacy systems to the cloud without a big-bang cutover. The team is looking for pilot partners this year.",
+      website: "vespernetworks.example", contact: "+1 (312) 555-0147", hours: "10:00–18:00"
+    },
+    "beacon-learn": {
+      name: "Beacon Learn", category: "Media", booths: [415],
+      tagline: "Courses people actually finish",
+      description: "Beacon Learn builds tools for independent creators. Engineers are on hand to answer technical questions.",
+      website: "beaconlearn.example", contact: "+1 (312) 555-0148", hours: "9:30–16:00"
+    },
+    "saltmarsh-foods": {
+      name: "Saltmarsh Foods", category: "Health", booths: [417],
+      tagline: "Meals planned with your dietitian",
+      description: "Saltmarsh Foods cuts the paperwork out of everyday care. Stop by for a live demo of their newest release.",
+      website: "saltmarshfoods.example", contact: "+1 (312) 555-0149", hours: "9:00–13:00"
+    },
+    "quarry-data": {
+      name: "Quarry Data", category: "AI & data", booths: [418],
+      tagline: "Dig up the data you already own",
+      description: "Quarry Data turns scattered company data into answers people can act on. Ask about their attendee discount, valid through Friday.",
+      website: "quarrydata.example", contact: "+1 (312) 555-0150", hours: "9:00–17:30"
+    },
+    "kestrel-vision": {
+      name: "Kestrel Vision", category: "AI & data", booths: [419],
+      tagline: "Cameras that know what they're looking at",
+      description: "Kestrel Vision builds models that explain their reasoning in plain language. Their founders are at the booth all afternoon.",
+      website: "kestrelvision.example", contact: "+1 (312) 555-0151", hours: "9:00–17:30"
+    },
+    "vantage-freight": {
+      name: "Vantage Freight", category: "Mobility", booths: [420],
+      tagline: "Cold-chain trucks you can watch live",
+      description: "Vantage Freight builds vehicles and services for cleaner transport. Book a 15-minute meeting at the booth.",
+      website: "vantagefreight.example", contact: "+1 (312) 555-0152", hours: "10:00–18:00"
+    },
+    "orbit-payments": {
+      name: "Orbit Payments", category: "Fintech", booths: [421],
+      tagline: "Get paid in any currency, same day",
+      description: "Orbit Payments gives small businesses tools once reserved for banks. Grab a sample and a short walkthrough at the booth.",
+      website: "orbitpayments.example", contact: "+1 (312) 555-0153", hours: "9:30–16:00"
+    },
+    "driftwood-studio": {
+      name: "Driftwood Studio", category: "Media", booths: [423],
+      tagline: "Brand films shot in a week",
+      description: "Driftwood Studio brings studio-quality production to small teams. The team is looking for pilot partners this year.",
+      website: "driftwoodstudio.example", contact: "+1 (312) 555-0154", hours: "9:00–13:00"
+    },
+    "marlow-media": {
+      name: "Marlow Media", category: "Media", booths: [425],
+      tagline: "Podcasts produced end to end",
+      description: "Marlow Media makes things people watch, play and listen to. Engineers are on hand to answer technical questions.",
+      website: "marlowmedia.example", contact: "+1 (312) 555-0155", hours: "9:00–17:30"
+    },
+    "larkspur-clinic-cloud": {
+      name: "Larkspur Clinic Cloud", category: "Health", booths: [426],
+      tagline: "Records that follow the patient",
+      description: "Larkspur Clinic Cloud shortens the wait between a question and a diagnosis. Stop by for a live demo of their newest release.",
+      website: "larkspurcliniccloud.example", contact: "+1 (312) 555-0156", hours: "9:00–17:30"
+    },
+    "zinc-shield": {
+      name: "Zinc Shield", category: "Security", booths: [427],
+      tagline: "Security reviews for small teams",
+      description: "Zinc Shield makes security simple enough for teams without a security department. Ask about their attendee discount, valid through Friday.",
+      website: "zincshield.example", contact: "+1 (312) 555-0157", hours: "10:00–18:00"
+    },
+    "pinecone-robotics": {
+      name: "Pinecone Robotics", category: "Hardware", booths: [500],
+      tagline: "Robot arms for small workshops",
+      description: "Pinecone Robotics turns lab prototypes into devices ready for production. Their founders are at the booth all afternoon.",
+      website: "pineconerobotics.example", contact: "+1 (312) 555-0158", hours: "9:30–16:00"
+    },
+    "nightjar-security": {
+      name: "Nightjar Security", category: "Security", booths: [501],
+      tagline: "Watching your network so you don't have to",
+      description: "Nightjar Security helps companies pass audits without a scramble. Book a 15-minute meeting at the booth.",
+      website: "nightjarsecurity.example", contact: "+1 (312) 555-0159", hours: "9:00–13:00"
+    },
+    "ember-batteries": {
+      name: "Ember Batteries", category: "Hardware", booths: [502, 504],
+      tagline: "Cells that last a decade",
+      description: "Ember Batteries designs devices you can hold, test and take apart. Grab a sample and a short walkthrough at the booth.",
+      website: "emberbatteries.example", contact: "+1 (312) 555-0160", hours: "9:00–17:30"
+    },
+    "quill-docs": {
+      name: "Quill Docs", category: "AI & data", booths: [503],
+      tagline: "Write once, translate everywhere",
+      description: "Quill Docs builds models that explain their reasoning in plain language. The team is looking for pilot partners this year.",
+      website: "quilldocs.example", contact: "+1 (312) 555-0161", hours: "9:00–17:30"
+    },
+    "keel-finance": {
+      name: "Keel Finance", category: "Fintech", booths: [505],
+      tagline: "Bookkeeping that closes itself",
+      description: "Keel Finance moves money across borders at fair, clear rates. Engineers are on hand to answer technical questions.",
+      website: "keelfinance.example", contact: "+1 (312) 555-0162", hours: "10:00–18:00"
+    },
+    "lattice-retail": {
+      name: "Lattice Retail", category: "AI & data", booths: [506],
+      tagline: "Know what sells before you stock it",
+      description: "Lattice Retail automates the reporting work that eats up Monday mornings. Stop by for a live demo of their newest release.",
+      website: "latticeretail.example", contact: "+1 (312) 555-0163", hours: "9:30–16:00"
+    },
+    "hazel-pay": {
+      name: "Hazel Pay", category: "Fintech", booths: [507],
+      tagline: "Tips and splits for restaurants",
+      description: "Hazel Pay makes billing and payouts easy to track. Ask about their attendee discount, valid through Friday.",
+      website: "hazelpay.example", contact: "+1 (312) 555-0164", hours: "9:00–13:00"
+    },
+    "kettle-commerce": {
+      name: "Kettle Commerce", category: "AI & data", booths: [508],
+      tagline: "Product pages that write themselves",
+      description: "Kettle Commerce turns scattered company data into answers people can act on. Their founders are at the booth all afternoon.",
+      website: "kettlecommerce.example", contact: "+1 (312) 555-0165", hours: "9:00–17:30"
+    },
+    "jasper-sensors": {
+      name: "Jasper Sensors", category: "Hardware", booths: [509],
+      tagline: "Air quality, measured room by room",
+      description: "Jasper Sensors builds rugged hardware for places software can't reach alone. Book a 15-minute meeting at the booth.",
+      website: "jaspersensors.example", contact: "+1 (312) 555-0166", hours: "9:00–17:30"
+    },
+    "birchway-transit": {
+      name: "Birchway Transit", category: "Mobility", booths: [512],
+      tagline: "Bus routes planned around riders",
+      description: "Birchway Transit builds vehicles and services for cleaner transport. Grab a sample and a short walkthrough at the booth.",
+      website: "birchwaytransit.example", contact: "+1 (312) 555-0167", hours: "10:00–18:00"
+    },
+    "flint-identity": {
+      name: "Flint Identity", category: "Security", booths: [514, 516],
+      tagline: "One login, zero passwords",
+      description: "Flint Identity watches for unusual activity and explains what it means. The team is looking for pilot partners this year.",
+      website: "flintidentity.example", contact: "+1 (312) 555-0168", hours: "9:30–16:00"
+    },
+    "plover-mobility": {
+      name: "Plover Mobility", category: "Mobility", booths: [515],
+      tagline: "E-bikes for delivery fleets",
+      description: "Plover Mobility connects riders, drivers and freight on one platform. Engineers are on hand to answer technical questions.",
+      website: "plovermobility.example", contact: "+1 (312) 555-0169", hours: "9:00–13:00"
+    },
+    "zenith-pay": {
+      name: "Zenith Pay", category: "Fintech", booths: [517],
+      tagline: "Pay suppliers in one batch",
+      description: "Zenith Pay makes money tasks for growing businesses simpler and faster. Stop by for a live demo of their newest release.",
+      website: "zenithpay.example", contact: "+1 (312) 555-0170", hours: "9:00–17:30"
+    },
+    "jetty-networks": {
+      name: "Jetty Networks", category: "Cloud & infra", booths: [518],
+      tagline: "Fiber for business parks",
+      description: "Jetty Networks helps engineering teams ship faster with fewer outages. Ask about their attendee discount, valid through Friday.",
+      website: "jettynetworks.example", contact: "+1 (312) 555-0171", hours: "9:00–17:30"
+    },
+    "tern-logistics": {
+      name: "Tern Logistics", category: "Mobility", booths: [519],
+      tagline: "Last mile, first class",
+      description: "Tern Logistics builds vehicles and services for cleaner transport. Their founders are at the booth all afternoon.",
+      website: "ternlogistics.example", contact: "+1 (312) 555-0172", hours: "10:00–18:00"
+    },
+    "quail-analytics": {
+      name: "Quail Analytics", category: "AI & data", booths: [520],
+      tagline: "Dashboards your whole team reads",
+      description: "Quail Analytics automates the reporting work that eats up Monday mornings. Book a 15-minute meeting at the booth.",
+      website: "quailanalytics.example", contact: "+1 (312) 555-0173", hours: "9:30–16:00"
+    },
+    "quartz-pay": {
+      name: "Quartz Pay", category: "Fintech", booths: [521],
+      tagline: "Checkout in two taps",
+      description: "Quartz Pay makes billing and payouts easy to track. Grab a sample and a short walkthrough at the booth.",
+      website: "quartzpay.example", contact: "+1 (312) 555-0174", hours: "9:00–13:00"
+    },
+    "moss-mobility": {
+      name: "Moss Mobility", category: "Mobility", booths: [522],
+      tagline: "Scooter parking hubs",
+      description: "Moss Mobility moves people and goods more efficiently through busy cities. The team is looking for pilot partners this year.",
+      website: "mossmobility.example", contact: "+1 (312) 555-0175", hours: "9:00–17:30"
+    },
+    "amberly-studio": {
+      name: "Amberly Studio", category: "Media", booths: [523, 525],
+      tagline: "Illustration and motion for brands",
+      description: "Amberly Studio helps brands tell stories that people remember. Engineers are on hand to answer technical questions.",
+      website: "amberlystudio.example", contact: "+1 (312) 555-0176", hours: "9:00–17:30"
+    },
+    "linden-lock": {
+      name: "Linden Lock", category: "Security", booths: [524],
+      tagline: "Smart locks for shared offices",
+      description: "Linden Lock makes security simple enough for teams without a security department. Stop by for a live demo of their newest release.",
+      website: "lindenlock.example", contact: "+1 (312) 555-0177", hours: "10:00–18:00"
+    },
+    "prairie-power": {
+      name: "Prairie Power", category: "Hardware", booths: [526],
+      tagline: "Home batteries for storm season",
+      description: "Prairie Power turns lab prototypes into devices ready for production. Ask about their attendee discount, valid through Friday.",
+      website: "prairiepower.example", contact: "+1 (312) 555-0178", hours: "9:30–16:00"
+    },
+    "foxglove-ai": {
+      name: "Foxglove AI", category: "AI & data", booths: [527, 626],
+      tagline: "Assistants trained on your own docs",
+      description: "Foxglove AI makes machine learning practical for teams without data scientists. Their founders are at the booth all afternoon.",
+      website: "foxgloveai.example", contact: "+1 (312) 555-0179", hours: "9:00–13:00"
+    },
+    "upland-mobility": {
+      name: "Upland Mobility", category: "Mobility", booths: [600],
+      tagline: "Shuttles for campuses and airports",
+      description: "Upland Mobility moves people and goods more efficiently through busy cities. Book a 15-minute meeting at the booth.",
+      website: "uplandmobility.example", contact: "+1 (312) 555-0180", hours: "9:00–17:30"
+    },
+    "slate-learning": {
+      name: "Slate Learning", category: "Media", booths: [602],
+      tagline: "Classroom tools teachers helped design",
+      description: "Slate Learning helps brands tell stories that people remember. Grab a sample and a short walkthrough at the booth.",
+      website: "slatelearning.example", contact: "+1 (312) 555-0181", hours: "9:00–17:30"
+    },
+    "basalt-storage": {
+      name: "Basalt Storage", category: "Cloud & infra", booths: [603],
+      tagline: "Backups you can restore in one click",
+      description: "Basalt Storage moves legacy systems to the cloud without a big-bang cutover. The team is looking for pilot partners this year.",
+      website: "basaltstorage.example", contact: "+1 (312) 555-0182", hours: "10:00–18:00"
+    },
+    "nova-guard": {
+      name: "Nova Guard", category: "Security", booths: [604],
+      tagline: "Device checks before anyone logs in",
+      description: "Nova Guard watches for unusual activity and explains what it means. Engineers are on hand to answer technical questions.",
+      website: "novaguard.example", contact: "+1 (312) 555-0183", hours: "9:30–16:00"
+    },
+    "mosaic-maps": {
+      name: "Mosaic Maps", category: "Mobility", booths: [605],
+      tagline: "Maps for places GPS can't reach",
+      description: "Mosaic Maps connects riders, drivers and freight on one platform. Stop by for a live demo of their newest release.",
+      website: "mosaicmaps.example", contact: "+1 (312) 555-0184", hours: "9:00–13:00"
+    },
+    "maple-ledger": {
+      name: "Maple Ledger", category: "Fintech", booths: [607],
+      tagline: "Payroll for teams in twenty countries",
+      description: "Maple Ledger makes money tasks for growing businesses simpler and faster. Ask about their attendee discount, valid through Friday.",
+      website: "mapleledger.example", contact: "+1 (312) 555-0185", hours: "9:00–17:30"
+    },
+    "kiln-cloud": {
+      name: "Kiln Cloud", category: "Cloud & infra", booths: [608],
+      tagline: "Build pipelines that don't break on Friday",
+      description: "Kiln Cloud helps engineering teams ship faster with fewer outages. Their founders are at the booth all afternoon.",
+      website: "kilncloud.example", contact: "+1 (312) 555-0186", hours: "9:00–17:30"
+    },
+    "orchid-finance": {
+      name: "Orchid Finance", category: "Fintech", booths: [609],
+      tagline: "Invoices chased politely, automatically",
+      description: "Orchid Finance moves money across borders at fair, clear rates. Book a 15-minute meeting at the booth.",
+      website: "orchidfinance.example", contact: "+1 (312) 555-0187", hours: "10:00–18:00"
+    },
+    "otter-analytics": {
+      name: "Otter Analytics", category: "AI & data", booths: [611, 613],
+      tagline: "Sales forecasts you can test",
+      description: "Otter Analytics automates the reporting work that eats up Monday mornings. Grab a sample and a short walkthrough at the booth.",
+      website: "otteranalytics.example", contact: "+1 (312) 555-0188", hours: "9:30–16:00"
+    },
+    "kelp-health": {
+      name: "Kelp Health", category: "Health", booths: [612],
+      tagline: "Nutrition tracking without the counting",
+      description: "Kelp Health cuts the paperwork out of everyday care. The team is looking for pilot partners this year.",
+      website: "kelphealth.example", contact: "+1 (312) 555-0189", hours: "9:00–13:00"
+    },
+    "zephyr-drones": {
+      name: "Zephyr Drones", category: "Mobility", booths: [614],
+      tagline: "Inspections from above, done by lunch",
+      description: "Zephyr Drones moves people and goods more efficiently through busy cities. Engineers are on hand to answer technical questions.",
+      website: "zephyrdrones.example", contact: "+1 (312) 555-0190", hours: "9:00–17:30"
+    },
+    "redwood-voice": {
+      name: "Redwood Voice", category: "Media", booths: [615],
+      tagline: "Voice-over in forty languages",
+      description: "Redwood Voice helps brands tell stories that people remember. Stop by for a live demo of their newest release.",
+      website: "redwoodvoice.example", contact: "+1 (312) 555-0191", hours: "9:00–17:30"
+    },
+    "umber-design": {
+      name: "Umber Design", category: "Media", booths: [616],
+      tagline: "Interfaces with a point of view",
+      description: "Umber Design produces content from first idea to final cut. Ask about their attendee discount, valid through Friday.",
+      website: "umberdesign.example", contact: "+1 (312) 555-0192", hours: "10:00–18:00"
+    },
+    "tidewater-labs": {
+      name: "Tidewater Labs", category: "Health", booths: [618],
+      tagline: "Lab results in hours, not days",
+      description: "Tidewater Labs makes it easier for patients to follow their treatment at home. Their founders are at the booth all afternoon.",
+      website: "tidewaterlabs.example", contact: "+1 (312) 555-0193", hours: "9:30–16:00"
+    },
+    "bramble-data": {
+      name: "Bramble Data", category: "AI & data", booths: [620],
+      tagline: "Survey answers, sorted and summarized",
+      description: "Bramble Data makes machine learning practical for teams without data scientists. Book a 15-minute meeting at the booth.",
+      website: "brambledata.example", contact: "+1 (312) 555-0194", hours: "9:00–13:00"
+    },
+    "juniper-bio": {
+      name: "Juniper Bio", category: "Health", booths: [621],
+      tagline: "Faster trials, safer medicine",
+      description: "Juniper Bio builds tools with clinicians to make care simpler for patients and staff. Grab a sample and a short walkthrough at the booth.",
+      website: "juniperbio.example", contact: "+1 (312) 555-0195", hours: "9:00–17:30"
+    },
+    "cinder-games": {
+      name: "Cinder Games", category: "Media", booths: [622],
+      tagline: "Small games, big weekends",
+      description: "Cinder Games helps brands tell stories that people remember. The team is looking for pilot partners this year.",
+      website: "cindergames.example", contact: "+1 (312) 555-0196", hours: "9:00–17:30"
+    },
+    "halcyon-audio": {
+      name: "Halcyon Audio", category: "Hardware", booths: [623],
+      tagline: "Headphones tuned by ear, not by chart",
+      description: "Halcyon Audio makes physical products that are easy to repair. Engineers are on hand to answer technical questions.",
+      website: "halcyonaudio.example", contact: "+1 (312) 555-0197", hours: "10:00–18:00"
+    },
+    "umbra-secure": {
+      name: "Umbra Secure", category: "Security", booths: [624],
+      tagline: "Encrypted file sharing for law firms",
+      description: "Umbra Secure watches for unusual activity and explains what it means. Stop by for a live demo of their newest release.",
+      website: "umbrasecure.example", contact: "+1 (312) 555-0198", hours: "9:30–16:00"
+    },
+    "pebble-transit": {
+      name: "Pebble Transit", category: "Mobility", booths: [627],
+      tagline: "Parking you can reserve",
+      description: "Pebble Transit connects riders, drivers and freight on one platform. Ask about their attendee discount, valid through Friday.",
+      website: "pebbletransit.example", contact: "+1 (312) 555-0199", hours: "9:00–13:00"
+    }
+  }
+};
+
+// ---- Floor geometry (everything below is derived from EXPO) ----
+const hall = EXPO.hall;
+const S = 80, OX = 60, OY = 60;                       // booth size and floor margin, in map units
+const ROWS = hall.grid.length, COLS = hall.grid[0].length;
+const colX = c => OX + c*S, rowY = r => OY + r*S;
+const W = OX + COLS*S + 60, H = OY + ROWS*S + 110;
+const cellOf = {};
+hall.grid.forEach((row, r) => row.forEach((n, c) => { if (n) cellOf[n] = {r, c}; }));
+
+function makeBooth(id, info, nums) {
+  const cells = nums.map(n => cellOf[n]).filter(Boolean).sort((a, b) => a.r - b.r || a.c - b.c);
+  const cx = cells.reduce((s, p) => s + colX(p.c) + S/2, 0) / cells.length;
+  const cy = cells.reduce((s, p) => s + rowY(p.r) + S/2, 0) / cells.length;
+  const top = cells.filter(p => p.r === cells[0].r);   // pin sits on the booth's top edge
+  const pinX = top.reduce((s, p) => s + colX(p.c) + S/2, 0) / top.length, pinY = rowY(cells[0].r) + 2;
+  return {id, ...info, booths: nums, cells, cx, cy, pinX, pinY, label: String(Math.min(...nums))};
+}
+const booths = Object.entries(EXPO.exhibitors).map(([id, e]) => makeBooth(id, e, [...e.booths].sort((a, b) => a - b)));
+const byId = Object.fromEntries(booths.map(b => [b.id, b]));
+const takenBy = {};
+for (const b of booths) for (const n of b.booths) takenBy[n] = b.name;
+const available = Object.keys(cellOf).map(Number).filter(n => !takenBy[n]).map(n => makeBooth("", {name: "Available"}, [n]));
+
+// Warn about data mistakes: unknown booths, double-booked booths, booths that don't share a side
+const claimed = {};
+for (const b of booths) {
+  for (const n of b.booths) {
+    if (!cellOf[n]) console.warn(`${b.name}: booth ${n} is not on the floor plan`);
+    if (claimed[n]) console.warn(`Booth ${n} is used by both ${claimed[n]} and ${b.name}`);
+    claimed[n] = b.name;
+  }
+  if (!b.cells.length) continue;
+  const key = p => p.r + "," + p.c, all = new Set(b.cells.map(key));
+  const seen = new Set([key(b.cells[0])]), stack = [b.cells[0]];
+  while (stack.length) {
+    const p = stack.pop();
+    for (const [dr, dc] of [[0,1],[1,0],[0,-1],[-1,0]]) {
+      const n = {r: p.r+dr, c: p.c+dc};
+      if (all.has(key(n)) && !seen.has(key(n))) { seen.add(key(n)); stack.push(n); }
+    }
+  }
+  if (seen.size !== all.size) console.warn(`${b.name}: booths ${b.booths.join(", ")} must share a side`);
+}
+
+// One exhibitor = one shape: square cells that touch, with an outline only where
+// a cell meets a different booth or an aisle (so shared booths have no inner lines)
+function boothShape(b) {
+  const own = new Set(b.cells.map(p => p.r + "," + p.c)), has = (r, c) => own.has(r + "," + c);
+  let faces = "", d = "";
+  for (const p of b.cells) {
+    const x = colX(p.c), y = rowY(p.r);
+    faces += `<rect x="${x}" y="${y}" width="${S}" height="${S}"/>`;
+    if (!has(p.r-1, p.c)) d += `M${x} ${y}h${S}`;
+    if (!has(p.r+1, p.c)) d += `M${x} ${y+S}h${S}`;
+    if (!has(p.r, p.c-1)) d += `M${x} ${y}v${S}`;
+    if (!has(p.r, p.c+1)) d += `M${x+S} ${y}v${S}`;
+  }
+  return `<g class="face">${faces}</g><path class="edge" d="${d}"/>`;
+}
+// Every cell shows its own booth number; the name appears once, under the top-left number
+function boothLabel(b) {
+  const a = b.cells[0], own = new Set(b.cells.map(p => p.r + "," + p.c));
+  let wc = 1; while (own.has(a.r + "," + (a.c + wc))) wc++;
+  const tall = own.has((a.r + 1) + "," + a.c);
+  const max = Math.floor((wc*S - 16) / 6.2), maxLines = tall ? 3 : 2;
+  const lines = [];
+  for (const word of b.name.split(" ")) {
+    const last = lines.length - 1;
+    if (last >= 0 && (lines[last] + " " + word).length <= max) lines[last] += " " + word;
+    else lines.push(word);
+  }
+  if (lines.length > maxLines) { lines.length = maxLines; lines[maxLines-1] += "…"; }
+  const fit = s => s.length > max ? s.slice(0, max - 1) + "…" : s;
+  const nums = b.cells.map(p => `<text class="code" x="${colX(p.c)+8}" y="${rowY(p.r)+18}">${hall.grid[p.r][p.c]}</text>`).join("");
+  return nums + lines.map((l, i) => `<text class="nm" x="${colX(a.c)+8}" y="${rowY(a.r)+36+i*13}">${fit(l)}</text>`).join("");
+}
+
+// ---- Build SVG ----
+const mapEl = document.getElementById("map");
+const th = hall.theater, hx = OX - 24, hy = OY - 24, wallX = colX(COLS);
+let svgStr = `<svg xmlns="http://www.w3.org/2000/svg" id="svg"><g id="world">
+  <rect class="hall" x="${hx}" y="${hy}" width="${wallX - hx}" height="${rowY(ROWS) + 64 - hy}" rx="16"/>
+  <line class="wall" x1="${wallX}" y1="${hy}" x2="${wallX}" y2="${rowY(ROWS) + 64}"/>
+  <rect class="theater" x="${hx}" y="${hy}" width="${colX(th.col + th.cols) - hx}" height="${rowY(th.row + th.rows) - 16 - hy}" rx="16"/>
+  <text class="theater-label" x="${(hx + colX(th.col + th.cols))/2}" y="${(hy + rowY(th.row + th.rows) - 16)/2 + 6}">${th.label}</text>
+  <line class="door" x1="${W/2-60}" y1="${rowY(ROWS) + 64}" x2="${W/2+60}" y2="${rowY(ROWS) + 64}"/>
+  <text class="entrance" x="${W/2}" y="${rowY(ROWS) + 92}">Main entrance</text>`;
+for (const [x, y] of hall.pillars) svgStr += `<circle class="pillar" cx="${OX + x*S}" cy="${OY + y*S}" r="8"/>`;
+for (const b of available) svgStr += `<g class="avail">${boothShape(b)}${boothLabel(b)}</g>`;
+for (const b of booths) svgStr += `<g class="tbl" data-id="${b.id}">${boothShape(b)}${boothLabel(b)}</g>`;
+svgStr += `<g id="pin" opacity="0"><circle class="ring" cx="0" cy="0" r="18"/>
+  <path class="body" d="M0 0c-2-9-12-13-12-23a12 12 0 0 1 24 0c0 10-10 14-12 23z"/>
+  <circle cx="0" cy="-23" r="4.5" fill="#fff"/></g></g></svg>`;
+mapEl.innerHTML = svgStr;
+const svg = document.getElementById("svg"), world = document.getElementById("world"), pin = document.getElementById("pin");
+// Bring a booth to the front so its outline isn't covered by a neighbor's
+const raise = el => world.insertBefore(el, pin);
+
+// ---- Pan & zoom ----
+const view = {x:0, y:0, k:1};
+const MIN_K = 0.2, MAX_K = 4;
+const clampK = k => Math.min(MAX_K, Math.max(MIN_K, k));
+const apply = () => world.setAttribute("transform", `translate(${view.x} ${view.y}) scale(${view.k})`);
+let anim = null;
+
+const wide = () => innerWidth >= 700;   // tablet and laptop layouts use a left side panel
+function visibleArea() {
+  if (wide()) {
+    const left = document.body.classList.contains("panel-closed") ? 0 : innerWidth >= 1100 ? 400 : 372;
+    return {top: 0, bottom: innerHeight, cx: (left + innerWidth)/2, cy: innerHeight/2, w: innerWidth - left, h: innerHeight};
+  }
+  const top = document.querySelector(".search").getBoundingClientRect().bottom + 8;
+  const bottom = innerHeight - sheetH;
+  return {top, bottom, cx: innerWidth/2, cy: (top + bottom)/2, w: innerWidth, h: Math.max(80, bottom - top)};
+}
+function animateTo(target) {
+  cancelAnimationFrame(anim);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { Object.assign(view, target); apply(); return; }
+  const from = {...view}, t0 = performance.now(), dur = 420;
+  const step = now => {
+    const p = Math.min(1, (now - t0)/dur), e = 1 - Math.pow(1-p, 3);
+    view.x = from.x + (target.x-from.x)*e; view.y = from.y + (target.y-from.y)*e; view.k = from.k + (target.k-from.k)*e;
+    apply(); if (p < 1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+function fitHall(animate = true) {
+  const a = visibleArea(), k = clampK(Math.min(a.w/W, a.h/H) * 0.98);
+  const target = {k, x: a.cx - (W/2)*k, y: a.cy - (H/2)*k};
+  animate ? animateTo(target) : (Object.assign(view, target), apply());
+}
+function flyTo(b) {
+  const a = visibleArea(), k = clampK(Math.min(1.2, a.w / (4.6 * S)));
+  animateTo({k, x: a.cx - b.cx*k, y: a.cy - b.cy*k});
+}
+function zoomAt(px, py, k) {
+  k = clampK(k);
+  const wx = (px - view.x)/view.k, wy = (py - view.y)/view.k;
+  view.k = k; view.x = px - wx*k; view.y = py - wy*k; apply();
+}
+
+const pointers = new Map();
+let pan = null, pinch = null, moved = false;
+svg.addEventListener("pointerdown", e => {
+  cancelAnimationFrame(anim);
+  svg.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (pointers.size === 1) { moved = false; startPan(e.clientX, e.clientY); }
+  if (pointers.size === 2) startPinch();
+  mapEl.classList.add("dragging");
+});
+function startPan(x, y) { pan = {sx:x, sy:y, x:view.x, y:view.y}; pinch = null; }
+function startPinch() {
+  const [a, b] = [...pointers.values()];
+  pinch = {d: Math.hypot(a.x-b.x, a.y-b.y), mx:(a.x+b.x)/2, my:(a.y+b.y)/2, ...view};
+  moved = true; pan = null;
+}
+svg.addEventListener("pointermove", e => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (pinch && pointers.size >= 2) {
+    const [a, b] = [...pointers.values()];
+    const k = clampK(pinch.k * Math.hypot(a.x-b.x, a.y-b.y) / pinch.d);
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+    const wx = (pinch.mx - pinch.x)/pinch.k, wy = (pinch.my - pinch.y)/pinch.k;
+    view.k = k; view.x = mx - wx*k; view.y = my - wy*k; apply();
+  } else if (pan) {
+    const dx = e.clientX - pan.sx, dy = e.clientY - pan.sy;
+    if (Math.abs(dx) + Math.abs(dy) > 6) moved = true;
+    view.x = pan.x + dx; view.y = pan.y + dy; apply();
+  }
+});
+function endPointer(e) {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.delete(e.pointerId);
+  if (pointers.size === 1) { const p = [...pointers.values()][0]; startPan(p.x, p.y); }
+  if (pointers.size === 0) {
+    mapEl.classList.remove("dragging");
+    if (!moved && e.type === "pointerup") {
+      const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest(".tbl");
+      if (hit && hit.dataset.id === selected) { clearSelection(); setSheet(snaps()[0]); fitHall(); }
+      else if (hit) select(hit.dataset.id);
+    }
+    pan = pinch = null;
+  }
+}
+svg.addEventListener("pointerup", endPointer);
+svg.addEventListener("pointercancel", endPointer);
+svg.addEventListener("wheel", e => {
+  e.preventDefault(); cancelAnimationFrame(anim);
+  zoomAt(e.clientX, e.clientY, view.k * Math.exp(-e.deltaY * 0.0015));
+}, {passive:false});
+
+const zoomBtn = f => { const a = visibleArea(); animateTo((() => {
+  const k = clampK(view.k * f), wx = (a.cx - view.x)/view.k, wy = (a.cy - view.y)/view.k;
+  return {k, x: a.cx - wx*k, y: a.cy - wy*k}; })()); };
+document.getElementById("zin").onclick = () => zoomBtn(1.5);
+document.getElementById("zout").onclick = () => zoomBtn(1/1.5);
+document.getElementById("fit").onclick = () => fitHall();
+
+// ---- Bottom sheet ----
+const sheet = document.getElementById("sheet"), controls = document.getElementById("controls"), grab = document.getElementById("grab");
+let sheetH = 0;
+const snaps = () => [32, Math.round(innerHeight*0.45), Math.round(innerHeight*0.86)];
+function setSheet(h, animate = true) {
+  sheetH = h;
+  sheet.classList.toggle("nodelay", !animate); controls.classList.toggle("nodelay", !animate);
+  document.documentElement.style.setProperty("--sheet-h", h + "px");
+}
+let drag = null;
+grab.addEventListener("pointerdown", e => { grab.setPointerCapture(e.pointerId); drag = {y:e.clientY, h:sheetH, moved:false}; });
+grab.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dy = e.clientY - drag.y; if (Math.abs(dy) > 4) drag.moved = true;
+  const s = snaps(); setSheet(Math.min(s[2], Math.max(s[0], drag.h - dy)), false);
+});
+grab.addEventListener("pointerup", () => {
+  if (!drag) return;
+  const s = snaps();
+  if (!drag.moved) { const i = s.indexOf(drag.h); setSheet(s[(i + 1) % s.length]); }
+  else setSheet(s.reduce((a, b) => Math.abs(b - sheetH) < Math.abs(a - sheetH) ? b : a));
+  drag = null;
+});
+grab.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  e.preventDefault(); const s = snaps(), i = s.indexOf(sheetH); setSheet(s[(i + 1) % s.length]);
+});
+
+// ---- Side panel, opened and closed by the list button in the search bar (tablet and laptop) ----
+const listBtn = document.getElementById("listbtn");
+function setPanel(open) {
+  sheet.classList.remove("nodelay");
+  document.body.classList.toggle("panel-closed", !open);
+  listBtn.classList.toggle("on", open);
+  listBtn.setAttribute("aria-expanded", open);
+  listBtn.setAttribute("aria-label", open ? "Hide exhibitor list" : "Show exhibitor list");
+}
+listBtn.onclick = () => setPanel(document.body.classList.contains("panel-closed"));
+
+// ---- Hover tooltip (mouse only) ----
+const tip = document.getElementById("tip"), canHover = matchMedia("(hover: hover) and (pointer: fine)");
+let hovered = null;
+function setHover(el, e) {
+  if (hovered !== el) {
+    hovered?.classList.remove("hover"); hovered = el;
+    if (el) { el.classList.add("hover"); raise(el); }
+    const sel = svg.querySelector(".tbl.sel"); if (sel && sel !== el) raise(sel);   // selected stays on top
+  }
+  if (!el) { tip.hidden = true; return; }
+  const b = byId[el.dataset.id];
+  tip.innerHTML = `<span class="badge">${b.label}</span>${b.name}`;
+  tip.hidden = false;
+  const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8), y = Math.min(e.clientY + 18, innerHeight - tip.offsetHeight - 8);
+  tip.style.transform = `translate(${x}px, ${y}px)`;
+}
+svg.addEventListener("pointermove", e => {
+  if (!canHover.matches || e.pointerType !== "mouse") return;
+  setHover(pointers.size ? null : e.target.closest(".tbl"), e);
+});
+svg.addEventListener("pointerleave", () => setHover(null));
+
+// ---- Keyboard: "/" focuses search, Esc closes details ----
+addEventListener("keydown", e => {
+  if (document.activeElement === q) return;
+  if (e.key === "/") { e.preventDefault(); q.focus(); }
+  else if (e.key === "Escape" && selected) clearSelection();
+});
+
+// ---- Selection & panel content ----
+const body = document.getElementById("body");
+let selected = null;
+function select(id) {
+  const t = byId[id]; if (!t) return;
+  selected = id;
+  setHover(null);   // the map moves, so the tooltip would point at the wrong booth
+  svg.querySelectorAll(".tbl.sel").forEach(el => el.classList.remove("sel"));
+  const el = svg.querySelector(`.tbl[data-id="${id}"]`);
+  el.classList.add("sel"); raise(el);
+  pin.setAttribute("transform", `translate(${t.pinX} ${t.pinY})`);
+  pin.setAttribute("opacity", "1");
+  q.value = ""; search("");
+  renderDetail(t);
+  if (wide()) setPanel(true);
+  else if (sheetH <= snaps()[0]) setSheet(snaps()[1]);
+  flyTo(t);
+}
+function clearSelection() {
+  selected = null;
+  setHover(null);
+  svg.querySelectorAll(".tbl.sel").forEach(el => el.classList.remove("sel"));
+  pin.setAttribute("opacity", "0");
+  renderList();
+}
+function renderDetail(t) {
+  body.innerHTML = `<div class="detail">
+    <div class="d-top"><span class="badge">${t.label}</span><button class="link" id="back">All exhibitors</button></div>
+    <h2>${t.name}</h2>
+    <p class="tagline">${t.tagline}</p>
+    <span class="cat">${t.category}</span>
+    <dl class="facts">
+      <div><dt>${t.booths.length > 1 ? "Booths" : "Booth"}</dt><dd>${t.booths.join(", ")}</dd></div>
+      <div><dt>Open</dt><dd>${t.hours}</dd></div>
+    </dl>
+    <p class="desc">${t.description}</p>
+    <div class="contact">
+      <a href="https://${t.website}" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
+        <span><small>Website</small>${t.website}</span></a>
+      <a href="tel:${t.contact.replace(/[^\d+]/g, "")}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+        <span><small>Contact</small>${t.contact}</span></a>
+    </div>
+    <button class="primary" id="center">Center on map</button></div>`;
+  body.scrollTop = 0;
+  document.getElementById("back").onclick = clearSelection;
+  document.getElementById("center").onclick = () => flyTo(t);
+}
+function renderList() {
+  const sorted = [...booths].sort((a, b) => a.name.localeCompare(b.name));
+  body.innerHTML = `<h2>${hall.name}</h2><p class="lead">${booths.length} exhibitors, ${available.length} booths available. Search or tap a booth to see details.</p>
+    <div class="list">${sorted.map(t => `<button class="row" data-id="${t.id}"><span class="badge">${t.label}</span>
+      <span class="who"><strong>${t.name}</strong><span>${t.category}</span></span></button>`).join("")}</div>`;
+  body.querySelectorAll(".row").forEach(b => b.onclick = () => select(b.dataset.id));
+}
+
+// ---- Search ----
+const q = document.getElementById("q"), suggest = document.getElementById("suggest"), clearBtn = document.getElementById("clear");
+let results = [], active = 0;
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function search(text) {
+  const s = text.trim().toLowerCase();
+  clearBtn.hidden = !text;
+  svg.querySelectorAll(".tbl.match").forEach(el => el.classList.remove("match"));
+  if (!s) { svg.classList.remove("filtered"); closeSuggest(); return; }
+  results = booths.filter(t => t.name.toLowerCase().includes(s) || t.booths.some(n => String(n).startsWith(s)));
+  results.forEach(t => { const el = svg.querySelector(`.tbl[data-id="${t.id}"]`); el.classList.add("match"); raise(el); });
+  svg.classList.add("filtered");
+  active = 0;
+  suggest.hidden = false;
+  suggest.innerHTML = results.length
+    ? results.slice(0, 6).map((t, i) => `<button data-id="${t.id}" class="${i === 0 ? "active" : ""}"><span class="badge">${t.label}</span>
+        <span class="who"><strong>${t.name}</strong><span>${t.category}</span></span></button>`).join("")
+    : `<div class="empty">No exhibitor matches “${esc(text.trim())}”. Try a company name or a booth number like 151.</div>`;
+  suggest.querySelectorAll("button").forEach(b => b.onclick = () => select(b.dataset.id));
+}
+function closeSuggest() { suggest.hidden = true; }
+q.addEventListener("input", () => search(q.value));
+q.addEventListener("focus", () => { if (q.value) search(q.value); });
+q.addEventListener("keydown", e => {
+  const btns = [...suggest.querySelectorAll("button")];
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    if (!btns.length) return; e.preventDefault();
+    active = (active + (e.key === "ArrowDown" ? 1 : btns.length - 1)) % btns.length;
+    btns.forEach((b, i) => b.classList.toggle("active", i === active));
+  } else if (e.key === "Enter" && btns[active]) { select(btns[active].dataset.id); q.blur(); }
+  else if (e.key === "Escape") closeSuggest();
+});
+clearBtn.onclick = () => { q.value = ""; search(""); q.focus(); };
+
+// ---- Init ----
+setSheet(snaps()[0], false);
+setPanel(false);   // on tablets and laptops the list starts closed (phones use the bottom panel instead)
+renderList();
+fitHall(false);
+let wasWide = wide();
+addEventListener("resize", () => {
+  const s = snaps(); setSheet(s.reduce((a, b) => Math.abs(b - sheetH) < Math.abs(a - sheetH) ? b : a), false);
+  if (wide() !== wasWide) {   // switched between phone and tablet/laptop layouts: re-center the map
+    wasWide = wide();
+    selected ? flyTo(byId[selected]) : fitHall(false);
+  }
+});
+</script>
+</body>
+</html>
+
+</body></html>
