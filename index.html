@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Exhibitor floor map mockup by wlm</title>
+    <title>Exhibitor floor map</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -439,7 +439,7 @@
         padding: 8px 0;
       }
       .cat {
-        display: inline-block;
+        display: none;
         margin: 0 0 16px;
         padding: 4px 10px;
         border-radius: 999px;
@@ -469,7 +469,12 @@
         font-weight: 600;
         font-size: 15px;
       }
+
+      .facts div:nth-child(2) {
+        display: none;
+      }
       .tagline {
+        display: none !important;
         margin: 0 0 12px;
         font-size: 17px;
         font-weight: 500;
@@ -810,7 +815,7 @@
             booths: [113, 115, 214, 212],
             tagline: "Carousel, shuttle and rock-and-roll machines",
             description:
-              "Specializes in carousel, shuttle, and rock-and-roll rotomolding machines that meet the highest safety standards.",
+              "OREX Rotomoulding specializes in rotomolding machines such as CAROUSEL, SHUTTLE and ROCK AND ROLL. Our machines meet the highest safety standards, ensuring reliability and user protection while simultaneously offering precision in the production process for various industries.",
             website: "https://orex-rotomoulding.com/",
             contact: "+1 (312) 555-0100",
             hours: "9:00–17:00",
@@ -821,7 +826,7 @@
             booths: [117],
             tagline: "Plastics and chemicals distribution",
             description:
-              "Global marketing and distribution company for plastics and chemicals.",
+              "Vinmar is a global marketing and distribution company that brings value to the world’s leading producers and users of plastics and chemicals through the supply of best-in-class products and tailored business solutions.",
             website: "https://vinmar.com/",
             contact: "+1 (312) 555-0101",
             hours: "9:00–17:00",
@@ -832,7 +837,7 @@
             booths: [119, 121, 220, 218],
             tagline: "1,000+ machines in 50+ countries",
             description:
-              "Rotational molding equipment maker with 1,000+ units in 50+ countries.",
+              "The Rotomachinery Group, comprised of Polivinil Rotomachinery S.p.A. and STP Rotomachinery Inc., is a global leader in rotational molding equipment. With over 1000 units in 50+ countries, they provide high-quality, reliable products from manufacturing sites in Europe and North America.",
             website: "https://rotomachinery.com/",
             contact: "+1 (312) 555-0102",
             hours: "10:00–17:00",
@@ -843,7 +848,7 @@
             booths: [200, 202],
             tagline: "Loading, weighing and dispensing systems",
             description:
-              "Design and manufacture of standard and custom loading, weighing, and dispensing systems.",
+              "Design and manufacture of standard and custom loading, weighing, and dispensing systems for the process of Rotational Molding.",
             website: "https://rotoload.ca/",
             contact: "+1 (312) 555-0103",
             hours: "9:00–16:00",
@@ -854,7 +859,7 @@
             booths: [201],
             tagline: "Prime resin, repro and custom colors",
             description:
-              "Shell Polymers branded prime rotational molding resin, generic prime, repro, and custom colors.",
+              "Shell Polymers branded prime rotational molding resin (pellets & powder), generic prime & wide spec (pellets & powder), Black and other colors repro, and pre-colored custom colors.",
             website: "http://trademarkplasticscorp.com/",
             contact: "+1 (312) 555-0104",
             hours: "10:00–16:00",
@@ -865,7 +870,7 @@
             booths: [205, 209, 207, 308, 306, 304],
             tagline: "RotoSpeed rotational molding machines",
             description:
-              "Ferry RotoSpeed™ rotational molding machines with swing capacities from 50 to 239 inches.",
+              "Ferry RotoSpeed™ Rotational Molding Machines include; Independent-Arm machines, Fixed-Arm Turret machines, Shuttle, ClamShell™ and Rocking Oven machines with swing capacities from 50 to 239″ and weight capacities to 10.",
             website: "https://www.ferryindustries.com/RotoSpeed",
             contact: "+1 (312) 555-0105",
             hours: "9:00–17:00",
@@ -876,7 +881,7 @@
             booths: [206, 208],
             tagline: "Polyethylene that puts converters first",
             description:
-              "A different kind of polyethylene supplier that puts plastic converters' needs first.",
+              "At Shell Polymers, we’re committed to being a different kind of polyethylene supplier – one that always puts plastic converters’ unique needs first. While we’re proud of our innovative processes and ways of working, we’re most excited to forge (Real)ationships with Rotational Molders like you.",
             website:
               "https://www.shell.us/business-customers/shell-polymers/about-shell-polymers.html",
             contact: "+1 (312) 555-0106",
@@ -888,7 +893,7 @@
             booths: [213, 215],
             tagline: "CNC aluminum molds since 1999",
             description:
-              "Creating customer relationships since 1999. High-quality CNC aluminum molds, CAD designs, and fabricated steel tools.",
+              "Since 1999 FabFour Inc. has been creating and maintaining customer relationships that have lasted for decades. We create high quality CNC aluminum molds, CAD designs, fabricated steel and stainless-steel tools. FabFour can provide vacuum formed tools, cooling fixtures and foaming fixtures. We can also assist with mold repairs and modifications. FabFour is the home of the Dead-Stop clamping system.",
             website: "https://www.fabfourinc.com/",
             contact: "+1 (312) 555-0107",
             hours: "10:00–17:00",
@@ -899,7 +904,7 @@
             booths: [216],
             tagline: "Rotomolding resins and custom compounding",
             description:
-              "LLDPE and HDPE rotational molding grade resins, custom compounding, and color blending.",
+              "Shaw Polymers offers both LLDPE and HDPE Rotational Molding grade resins. Pellets and Powder available. Custom compounding and color blending also available.",
             website: "https://www.shawpolymers.com/",
             contact: "+1 (312) 555-0108",
             hours: "9:00–16:00",
@@ -921,7 +926,7 @@
             booths: [219],
             tagline: "Measurement tools made for rotomolding",
             description:
-              "Supplies live mold temperature monitors, part wall thickness meters and educational services exclusively for the rotational molding industry.",
+              "493K Limited supplies live mold temperature monitors, part wall thickness meters and educational services exclusively for the rotational molding industry. These solutions on the market since 2003, help molders to reduce scrap rates, improve part quality and ultimately increase profits.",
             website: "https://www.493k.com/",
             contact: "+1 (312) 555-0110",
             hours: "9:00–17:00",
@@ -932,7 +937,7 @@
             booths: [221],
             tagline: "Roto and foam compounds",
             description:
-              "Manufacturer and supplier of roto compounds, foam compounds, rotolining, and stone-effect powders.",
+              "Manufacturer, Supplier, Exporter, Services Provider of Roto Compounds / Antimicrobial Powders, Foam Compounds / Foam Powders, Rotolining Compounds / Rotolining Powders, Stone Effect Powders, Roto Moulding Color Powders, Speciality Metallocene Grades, PP compound/ Powders, Flexible compounds, Special Purpose Custom Formulations, Rotolining, Chemical Tanks and Storage Solutions, Custom Molding, Plastic Fabrication, Toll Compounding and Pulverizing from Nashik, Maharashtra, India.",
             website: "https://www.phychem.com/",
             contact: "+1 (312) 555-0111",
             hours: "9:00–17:00",
@@ -943,7 +948,7 @@
             booths: [223, 225],
             tagline: "Pulverizing systems since 1996",
             description:
-              "In the size-reduction business since 1996, designing and manufacturing pulverizing and micronizing systems.",
+              "Orenda Pulverizes Inc. has been in the size-reduction business since 1996. We design, engineer, manufacture and service pulverizing/micronizing systems. In short, we help our customers make finer, higher-quality powders from polymers and other materials. We take pride in providing the plastics industry with practical and cost-effective solutions that meet its demands. We manufacture our equipment using the latest technology, so that we can deliver superior quality products to our customers.",
             website: "https://orenda-pulverizers.com/",
             contact: "+1 (312) 555-0112",
             hours: "10:00–17:00",
@@ -954,7 +959,7 @@
             booths: [227],
             tagline: "Roto powders, granites and color",
             description:
-              "Expert color compounders producing roto powders, dry and pre-color, granites, and specialty formulations.",
+              "Expert Color Compounders producing Roto Powders, Dry & Pre-Color, Granites, Specialty/Custom Formulations to your specifications. Completely produced in house. Short lead times, best quality & technical support in the industry. Low order minimums / 3 Plants / 18 Twin Compounders / 3 Labs.",
             website: "https://mosaicroto.com/",
             contact: "+1 (312) 555-0113",
             hours: "9:00–16:00",
@@ -965,7 +970,7 @@
             booths: [300],
             tagline: "Raw materials for rotational moulding",
             description:
-              "Leading global supplier of raw materials to the rotational moulding industry.",
+              "Matrix Polymers is a leading global supplier of raw materials to the rotational moulding industry. We offer an extensive range of raw material and have developed several of our key grades under our ‘Designed for Roto®’ concept.",
             website: "https://www.matrixpolymers.com/",
             contact: "+1 (312) 555-0114",
             hours: "10:00–16:00",
@@ -976,7 +981,7 @@
             booths: [301, 303],
             tagline: "Rotomolding tooling for over 50 years",
             description:
-              "Providing creative solutions in tooling for rotational molders for over 50 years. Onsite patterning, casting, and CNC operations.",
+              "Cole Industries/Norstar: Providing creative solutions in tooling for rotational molders and their customers for over 50 years. Onsite patterning, casting, and CNC operations for excellence in molds. Rotomart: 24/7 marketplace for supplies, solutions, and consumables for rotomolders.",
             website: "https://www.coleindustries.com/",
             contact: "+1 (312) 555-0115",
             hours: "9:00–17:00",
@@ -987,7 +992,7 @@
             booths: [305],
             tagline: "Compounding, blending and pulverizing",
             description:
-              "Plastic supplier and reprocessor offering compounding, dry blending, and pulverizing services.",
+              "Poly Plastics is a plastic supplier and reprocessor for the rotational molding industry. We can compound pre-colors, dry blend powders, and pulverize the plastic into a consistently high-quality powder. We also toll reprocess and purchase plastic scrap. Poly Plastics has its own trucks and trailers and can deliver products in a variety of ways, including boxes, bulk, drums, or super sacks. Poly Plastics prides itself on the best service and turnaround times in the industry.",
             website: "https://www.recycleyourplastic.com/",
             contact: "+1 (312) 555-0116",
             hours: "9:00–17:00",
@@ -998,7 +1003,7 @@
             booths: [307, 309],
             tagline: "Pour-in-place foam for thermal performance",
             description:
-              "Ecofoam® pour-in-place foam systems providing superior thermal performance and rugged durability.",
+              "Our family of Ecofoam® pour-in-place foam systems provides superior thermal performance and rugged durability that flexibly integrates with either injection or rotational molding manufacturing lines.",
             website: "https://fsi.co/",
             contact: "+1 (312) 555-0117",
             hours: "10:00–17:00",
@@ -1009,7 +1014,7 @@
             booths: [312, 314],
             tagline: "Silicone and non-silicone mold releases",
             description:
-              "Manufacturer of water- and solvent-based silicone and non-silicone mold releases and cleaners.",
+              "Manufacturer of Stoner, Releasomers, and TraSys Product lines which include water and solvent-based silicone and non-silicone mold releases, mold cleaners, Rust Preventives, Water and Solvent Flow Promoters, and more.",
             website: "https://stonersolutions.com/",
             contact: "+1 (312) 555-0118",
             hours: "9:00–16:00",
@@ -1020,7 +1025,7 @@
             booths: [313],
             tagline: "Polyethylene for a better world",
             description:
-              "Leading polyethylene producer reshaping plastics for a better world by delivering innovative and quality product offerings.",
+              "Borouge International, a leading polyethylene producer, strives to reshape plastics for a better world by delivering innovative and quality product offerings, value chain collaboration, and a unique customer experience. Our employees are committed to health, safety, security, and environmental stewardship.",
             website: "https://www.borougeinternational.com/",
             contact: "+1 (312) 555-0119",
             hours: "10:00–16:00",
@@ -1031,7 +1036,7 @@
             booths: [315],
             tagline: "85 years of cast molds",
             description:
-              "Over 85 years of manufacturing expertise. Full-service aluminum foundry for cast molds and specialty casting.",
+              "Over 85 years of manufacturing expertise. Your one-stop shop providing the rotational molding, vacuum forming and specialty castings industry. Full-service aluminum foundry for cast molds and specialty casting. High-quality CNC machined molds and master patterns. Fabrication services, CNC plasma cutting, CNC brake and rolling. Aluminum, low carbon steel, and stainless steel molds for rotational molding. Product design consultation, mold repair service, spare parts and mold coating are offered.",
             website: "https://www.diversifiedmolds.com/",
             contact: "+1 (312) 555-0120",
             hours: "9:00–17:00",
@@ -1042,7 +1047,7 @@
             booths: [316],
             tagline: "Graphics embedded in plastic products",
             description:
-              "Supports companies embedding brands across plastic products with innovative graphic applications.",
+              "PSI Brand supports companies who want to embed their brand across their plastic products. Enabling them to create powerful and memorable visuals, permanently. We do this by offering innovative graphic applications, rigorously tested, to make branding any product or piece of equipment a simple and effective process. Passionately created in New Zealand, with over 30 years in the Industry, we innately know plastic and have developed hard wearing solutions that last lifetimes.",
             website: "https://psibrand.com/",
             contact: "+1 (312) 555-0121",
             hours: "9:00–17:00",
@@ -1053,7 +1058,7 @@
             booths: [318],
             tagline: "Three generations of rotomolding moulds",
             description:
-              "Third-generation family company specializing in the design and manufacture of rotational molding moulds.",
+              "We are a third-generation family company. Starting from light metalwork, we entered the world of rotational molding with direct experience in the molding process, later specializing exclusively in the design and manufacture of moulds. This journey has allowed us to master every detail, enabling us today to offer highly specialized, high-performance solutions.",
             website: "https://www.martinastampi.it/en/",
             contact: "+1 (312) 555-0122",
             hours: "10:00–17:00",
@@ -1064,7 +1069,7 @@
             booths: [319],
             tagline: "Linking rotomolders and suppliers",
             description:
-              "Rotomolding-specific trade organization linking manufacturers and suppliers.",
+              "RotoMARKETPLACE is the first industry-wide rotomolding-specific, trade organization that links independent manufacturers and industry suppliers, and provides an innovative new approach to optimized group purchasing. RotoMARKETPLACE enables manufacturers to receive the best possible price and reduce costs of resins, accessories, packaging, supplies and services, and receive a broader selection of high-quality items and support, compared to making those purchases on their own.",
             website: "https://roto-marketplace.com/",
             contact: "+1 (312) 555-0123",
             hours: "9:00–16:00",
@@ -1075,7 +1080,7 @@
             booths: [320],
             tagline: "Reprocessed powders and pulverizing",
             description:
-              "Pulverizer and recycler supplying reprocessed powders and pulverizing virgin resins.",
+              "Re-Gen, Inc is pulverizer and recycler that focuses on servicing rotomolding businesses by supplying reprocessed powders and pulverizing virgin resins.",
             website: "https://re-geninc.com/",
             contact: "+1 (312) 555-0124",
             hours: "10:00–16:00",
@@ -1086,7 +1091,7 @@
             booths: [321],
             tagline: "Graphene masterbatch for stronger parts",
             description:
-              "GARMOR™ graphene masterbatch material enables manufacturers to produce high-quality thermoplastic components.",
+              "Asbury’s GARMOR™ graphene masterbatch material enables manufacturers to produce high-quality thermoplastic components with improved mechanical, barrier, and thermal properties. Asbury’s technical team works closely with customers to optimize additive concentrations, carrier systems, and performance targets based on the specific resin, process, and application requirements.",
             website: "https://www.asbury.com/",
             contact: "+1 (312) 555-0125",
             hours: "9:00–17:00",
@@ -1097,7 +1102,7 @@
             booths: [322],
             tagline: "Customizable process technology systems",
             description:
-              "Solution provider for customizable systems and integrated solutions in process technology.",
+              "The MAAG Group is your solution provider for customizable systems and integrated solutions in process technology for the polymer, chemical, petrochemical and pharmaceutical industries. Learn more about our state-of-the-art equipment, industry-specific applications, and worldwide service. See a variety of our market-leading products, latest innovations, and find the solutions that fit your business needs.",
             website: "https://maag.com/",
             contact: "+1 (312) 555-0126",
             hours: "9:00–17:00",
@@ -1108,7 +1113,7 @@
             booths: [323],
             tagline: "IoT monitoring and precision molds",
             description:
-              "India-based rotomolding company designing IoT monitoring systems, PIAT meters, and precision molds.",
+              "Vel Plast is an India-based rotomolding company that designs and builds its own IoT machine monitoring systems, PIAT meters, powder testing equipment, and precision molds — all purpose-built for rotomolding. Every solution we offer comes from real production experience, not third-party repackaging. Visit us to explore tools made by rotomolders, for rotomolders.",
             website: "https://www.whiteplast.com/",
             contact: "+1 (312) 555-0127",
             hours: "10:00–17:00",
@@ -1119,7 +1124,7 @@
             booths: [324],
             tagline: "Machines, pulverizers and molds",
             description:
-              "30 years of experience offering rotomolding machines, pulverizers, and molds.",
+              "With 30 years of experience, Reduction International offers the leading equipment in the rotational molding industry; including: rotomolding machines, pulverizers, molds, auxiliary and laboratory equipment.",
             website: "https://reductioninternational.com/",
             contact: "+1 (312) 555-0128",
             hours: "9:00–16:00",
@@ -1130,7 +1135,7 @@
             booths: [325],
             tagline: "Rotomolding compounds in natural, black and foam",
             description:
-              "Manufacturer of high-quality compounds for rotomolding, offering PE in natural, black, and foam.",
+              "POLNAC is a leader manufacturer of high quality Compounds for Rotomolding. We offer a wide range of Compounds: PE available in Natural, Black, Foam, Colors & Specialties. We provide just in time deliveries and technical service for all your requirements, including new developments and innovations.",
             website: "https://polnac.com/",
             contact: "+1 (312) 555-0129",
             hours: "10:00–16:00",
@@ -1141,7 +1146,7 @@
             booths: [326],
             tagline: "Machinery and molds for 37 years",
             description:
-              "Manufacturing rotational molding machinery and molds for over 37 years, with 500+ customer installations.",
+              "M PLAST has been manufacturing rotational molding machinery and molds for over 37 years. Based out of India, close to the capital New Delhi, we have customers in more than 50 countries with more than 450 machinery installations.",
             website: "http://mplast.com/",
             contact: "+1 (312) 555-0130",
             hours: "9:00–17:00",
@@ -1152,7 +1157,7 @@
             booths: [327],
             tagline: "One-stop rotomolding solutions",
             description:
-              "One-stop rotomolding solution provider integrating design, R&D, and manufacturing of equipment and moulds.",
+              "Established in 2009, Ningbo Starway Roto Co., Ltd. is a one-stop rotomolding solution provider integrating design, R&D, manufacturing and sales of precision rotomolding equipment and moulds., Headquartered in Xuancheng, at present we boast a sophisticated R&D team, a core technical team of over 40 professionals, 80% of the team hold bachelor’s degrees, and each member brings more than a decade of industry experience, using a 20-acre production facility and we have obtained 23 patents and successfully completed over 230 projects.",
             website: "https://www.starwayroto.com/",
             contact: "+1 (312) 555-0131",
             hours: "9:00–17:00",
@@ -1163,7 +1168,7 @@
             booths: [400],
             tagline: "Rotomolding grades and compounded colors",
             description:
-              "Dow and Novapol rotational molding grades, compounded colors, modified polymers, and FR compounds.",
+              "Dow Rotational Molding grades, LLDPE and HDPE. Novapol Rotational Molding Grades, LLDPE. Compounded Colors, Modified Polymers, Ingenia Polymers Crosslink and Dow INFUSE resin. FR Compounds.",
             website: "https://www.entecpolymers.com/",
             contact: "+1 (312) 555-0132",
             hours: "10:00–17:00",
@@ -1174,7 +1179,7 @@
             booths: [401, 407, 405, 403, 500, 502, 504, 506],
             tagline: "Rotational molding machines",
             description:
-              "Rotational molding machine maker known for innovative designs such as the spherical oven.",
+              "Rotoline is a global leader in rotational molding machines, known for innovative designs like the first spherical oven, enhancing efficiency and automation. With a presence on five continents, Rotoline serves diverse industries, maintaining high standards in safety and quality.",
             website: "https://www.rotoline.com",
             contact: "+1 (312) 555-0133",
             hours: "9:00–16:00",
@@ -1185,7 +1190,7 @@
             booths: [402],
             tagline: "Engineered compounding solutions",
             description:
-              "Provides engineered solutions by applying in-depth knowledge of thermoplastic compounding and materials.",
+              "McCann Plastics provides clients engineered solutions by applying an in-depth knowledge of thermoplastic compounding, materials, and end-use processing to best serve a client’s specific and often unique requirements. Such a bold approach provides us with the privilege of serving many markets including automotive, electrical and electronics, packaging, film, consumer goods and many more.",
             website: "https://www.mccannplastics.com/",
             contact: "+1 (312) 555-0134",
             hours: "10:00–16:00",
@@ -1196,7 +1201,7 @@
             booths: [404, 406],
             tagline: "Grinding, compounding and foam systems",
             description:
-              "Custom grinding and compounding services, the Rotolite™ foam system, and Superlink crosslinkable polyethylene.",
+              "Custom grinding and compounding services. Rotolite™ single drop foam system. Superlink Crosslinkable Polyethylene",
             website: "https://www.ingeniapolymers.com/",
             contact: "+1 (312) 555-0135",
             hours: "9:00–17:00",
@@ -1207,7 +1212,7 @@
             booths: [408],
             tagline: "International thermoplastic resin distribution",
             description:
-              "Leading international distributor of thermoplastic resin, offering the NOVAPOL, SCLAIR, and SURPASS brands.",
+              "M. Holland is a leading international distributor of thermoplastic resin, helping clients and suppliers with everything from sourcing and logistics solutions to strategic marketing channels. NOVAPOL, SCLAIR, SURPASS, and MTEGRITY brands of hexene and octene LLDPE, MDPE, and HDPE resins.",
             website: "https://www.mholland.com/",
             contact: "+1 (312) 555-0136",
             hours: "9:00–17:00",
@@ -1218,7 +1223,7 @@
             booths: [409],
             tagline: "Mold releases, cleaners and coatings",
             description:
-              "Mold release agents, lubricants and antistick coatings, mold cleaners, and protective coatings.",
+              "Mold release agents; lubricants and antistick coatings. Semi-permanent water and solvent-based products available. Mold cleaners, mold sealers and protective coatings. Worldwide distribution.",
             website: "https://mclube.com/",
             contact: "+1 (312) 555-0137",
             hours: "10:00–17:00",
@@ -1229,7 +1234,7 @@
             booths: [413, 512],
             tagline: "Color and specialty PE compounds",
             description:
-              "LLDPE and HDPE color compounds, flame-resistant PE compounds, and specialty PE compounds.",
+              "LLDPE and HDPE color compounds, flame resistant PE compounds, specialty PE compounds, toll compounding, pulverizing, reprocessing, and industrial PE recycling. Stone effects, high intensity color blends and pigments.",
             website: "https://jericoplastic.com/",
             contact: "+1 (312) 555-0138",
             hours: "9:00–16:00",
@@ -1240,7 +1245,7 @@
             booths: [414],
             tagline: "Portable evaporative cooling",
             description:
-              "Manufacturer of portable evaporative cooling solutions for over 30 years.",
+              "We are Portacool, first-to-market and leading portable evaporative cooling solutions manufacturer. For more than 30 years, we have safeguarded America’s workforce and way of life by providing superior cooling solutions that transform extreme heat into manageable environments for those working and living in the toughest conditions. Through durable, made-in-the-USA craftsmanship and design, best-in-class warranties and customer care, and innovative CoolSync™ Technology, our products empower customers to work smarter, safer, and perform at their best.",
             website: "https://www.portacool.com/",
             contact: "+1 (312) 555-0139",
             hours: "10:00–16:00",
@@ -1251,7 +1256,7 @@
             booths: [415],
             tagline: "30 years of rotational casting molds",
             description:
-              "China's first rotational casting mold manufacturer, with 30 years of professional experience.",
+              "Chunxu is the first rotational casting mold manufacturer in China. The company has 30 years of professional rotational experience in mold and has participated in the development projects for the Beijing 2008 Olympic Games, the Madrid Pavilion of the Shanghai Expo 2010, and the London Olympic Game.",
             website: "http://en.chunxumould.com/",
             contact: "+1 (312) 555-0140",
             hours: "9:00–17:00",
@@ -1262,7 +1267,7 @@
             booths: [417],
             tagline: "Threaded inserts and fittings",
             description:
-              "Manufactures threaded inserts, NPT/SAE fittings, bulkhead fittings, and custom components.",
+              "Rotaloc threaded inserts, NPT/SAE fittings, bulkhead fittings, multi-insert plates & strips. Mfg. of PTFE Vent Tube. Custom components, brackets, fittings, pins, wire & springs, casting, forging, stamping, EDM & CNC machining, injection molding and extrusion tooling & production. Value Quality Service.",
             website: "https://www.rotaloc.com/",
             contact: "+1 (312) 555-0141",
             hours: "9:00–17:00",
@@ -1273,7 +1278,7 @@
             booths: [418],
             tagline: "AI production scheduling for rotomolders",
             description:
-              "Production management and scheduling software built for rotational molding, using AI.",
+              "RotoEdge Pro is the first and only rotational molding-specific production management and scheduling software that solves complex real-time manufacturing challenges, and eliminates paper-based manufacturing order tracking, change orders and updates. RotoEdge Pro uses Artificial Intelligence (AI) to give plant managers the ability to ask complex questions about real-time production output, get immediate insight on trends, demand and operational needs, and automatically schedule labor, molds and machines. RotoEdge Pro finds tendencies that help managers to track and analyze results and WIP, maximize productivity, reduce costs, increase revenue, and respond more quickly to the changing business environment.",
             website: "https://rotoedgepro.com/",
             contact: "+1 (312) 555-0142",
             hours: "10:00–17:00",
@@ -1284,7 +1289,7 @@
             booths: [419],
             tagline: "Customized roto mold solutions",
             description:
-              "A leader in customized roto mold solutions with over 30 years of expertise.",
+              "Piyush Rotomac, a leader in customized roto mold solutions, delivers top-quality, innovative moulds for industries like wastewater treatment, defense, and agriculture, etc. With over 30 years of expertise, we ensure exceptional customer service and tailored solutions to meet your specific needs.",
             website: "https://www.piyushrotomac.com/",
             contact: "+1 (312) 555-0143",
             hours: "9:00–16:00",
@@ -1295,7 +1300,7 @@
             booths: [420],
             tagline: "CNC and cast molds, custom fixtures",
             description:
-              "Design and engineering services, CNC and cast molds, and custom fixtures.",
+              "At XM Tech, we do more than just make molds; we solve problems. We provide design and engineering services, build CNC and cast (porosity-free) molds, and custom-build trim, foaming fixtures, and service platforms. Join us at the forefront.",
             website: "https://xmtech.it/",
             contact: "+1 (312) 555-0144",
             hours: "10:00–16:00",
@@ -1306,7 +1311,7 @@
             booths: [421],
             tagline: "Lids and fittings for rotomolded tanks",
             description:
-              "Manufactures plastic lids and outlet fittings for rotomolded tanks, with expertise in assembly.",
+              "Precision Products Enterprises manufactures plastic lids and outlet fittings for rotomolded tanks. With expertise in injection molding, assembly and customized projects.",
             website: "https://www.pp-ent.com/",
             contact: "+1 (312) 555-0145",
             hours: "9:00–17:00",
@@ -1317,7 +1322,7 @@
             booths: [422],
             tagline: "Cast and CNC aluminum molds",
             description:
-              "ISO 9001-certified manufacturer integrating aluminum mold casting and CNC machining.",
+              "Taizhou Jingzhen Mould Technology is located in Ningbo, Zhejiang, known as “China’s Casting Mold Hometown”. We are a professional manufacturer integrating aluminum mold casting, CNC machining, and mold development. Our facility covers 1,200m², enabling an annual output of 200 sets of large-scale molds (up to 2.5 tons). We specialize in rotomolding, thermoforming, and automotive interior molds. With ISO9001 certification and strict quality control, we offer reliable, cost-effective services and efficient lead times to global partners. Welcome to connect at Rotoplas 2026.",
             website: "http://www.jingzhengmould.com/",
             contact: "+1 (312) 555-0146",
             hours: "9:00–17:00",
@@ -1328,7 +1333,7 @@
             booths: [425],
             tagline: "Pre- and post-mould graphics",
             description:
-              "Brilsol is a major player in pre- and post-mould graphic manufacturing for global brands.",
+              "Brilsol is a major player in Pre and Post-Mould graphic manufacturing. Our top-tier graphic solutions serve global brands, providing everything from permanent labeling and rotational mould compounds to PE foaming and mould release solutions. We are your comprehensive source for all these needs.",
             website: "https://www.brilsol.com/",
             contact: "+1 (312) 555-0147",
             hours: "10:00–17:00",
@@ -1339,7 +1344,7 @@
             booths: [426],
             tagline: "Pulverizing, compounding and logistics",
             description:
-              "Pulverizing, compounding, bulk transport, rail, warehousing, and packaging services.",
+              "Pulverizing, Compounding, Bulk Transport, Rail, Warehousing, and Packaging Services.",
             website: "https://brunkus.com/",
             contact: "+1 (312) 555-0148",
             hours: "9:00–16:00",
@@ -1350,7 +1355,7 @@
             booths: [427],
             tagline: "Spin weld fittings, plugs and tank lids",
             description:
-              "Injection molded products, spin weld fittings, plugs, grommets, bulk head fittings, and tank lids.",
+              "Injection molded products, spin weld fittings, plugs, grommets, bulk head fittings, tank lids, pressure and suction relief vents for UN-approved containers, and lick tank wheels and brackets.",
             website: "https://www.spinwelding.com/",
             contact: "+1 (312) 555-0149",
             hours: "10:00–16:00",
@@ -1361,7 +1366,7 @@
             booths: [501, 600],
             tagline: "Pulverizing systems and material handling",
             description:
-              "Direct-drive pulverizing systems, used rotomolding machines, silos, bins, and conveying systems.",
+              "Direct Drive Pulverizing Systems. The direct drive eliminates the bearing housings, belt drives & motor adjustment, which saves customers maintenance expense and valuable down time, also stocking of spare parts. Our pulverizers are also fitted with a rotomolded pellet hopper. Used Rotomolding machines carousel and shuttle. New silos, bins, pellet, powder conveying systems, granulators, lab equip, replacement disks & disk sharpening service for all pulverizing systems.",
             website: "https://www.powder-king.com/",
             contact: "+1 (312) 555-0150",
             hours: "9:00–17:00",
@@ -1372,7 +1377,7 @@
             booths: [503],
             tagline: "Specialty rotomoulding materials",
             description:
-              "Global supplier of specialty rotomoulding materials such as crosslink PE, HDPE, and FR grades.",
+              "PolymerLink is a global supplier of Specialty Rotomoulding Materials like Cross-link PE, HDPE, FR grades, Conductive & Anti-static grades etc., having state-of-the-art manufacturing facilities with latest in-house developed Technologies offering complete sales & service support in the United States.",
             website: "https://polymerlink.in",
             contact: "+1 (312) 555-0151",
             hours: "9:00–17:00",
@@ -1383,7 +1388,7 @@
             booths: [505],
             tagline: "Rotomolding LLDPE, HDPE and compounds",
             description:
-              "ExxonMobil rotational molding LLDPE and HDPE, Paxon crosslink PE, and compounds for rotational molding.",
+              "ExxonMobil Rotational Molding LLDPE & HDPE (Pellets & Powder), ExxonMobil Paxon™ Cross Link PE (Pellets & Powder) Compounds for Rotational Molding: Pre-Colored (Custom & Stock Colors), Flame Retardant, Mineral Filled. Aquatuf® High Performance PE Compounds",
             website: "https://www.muehlstein.com/",
             contact: "+1 (312) 555-0152",
             hours: "10:00–17:00",
@@ -1405,7 +1410,7 @@
             booths: [508],
             tagline: "CNC and cast aluminum molds",
             description:
-              "CNC-machined rotational molds, cast aluminum molds, spiders and frames, prototypes, and engineering services.",
+              "CNC machined rotational molds, CNC machined rotational molds with direct heating, Cast aluminum rotational molds, Spider and Frames, Prototypes and design support, Engineering services, Structural calculation, Molds maintenance and revision, Molds surface coatings, Automation systems, Smart machines (direct heated machinery) manual/semi-automatic/fully-automatic.",
             website: "https://www.persico.com/",
             contact: "+1 (312) 555-0154",
             hours: "10:00–16:00",
@@ -1416,7 +1421,7 @@
             booths: [513],
             tagline: "CNC-machined and cast aluminum molds",
             description:
-              "World-class mold builder, providing CNC-machined and cast aluminum molds to the plastics industry.",
+              "Avantech is world-class mold builder, providing CNC-machined and cast aluminum molds to the plastics industry. We also offer plastic part design and consultation services. Other services include trim, foaming and check fixtures; small batch production machining and model making capabilities.",
             website: "https://avantech.com/",
             contact: "+1 (312) 555-0155",
             hours: "9:00–17:00",
@@ -1427,7 +1432,7 @@
             booths: [514],
             tagline: "UV stabilizers, antioxidants and antistats",
             description:
-              "Plastics additives including ultraviolet light stabilizers, antioxidants, and antistatic agents.",
+              "Plastics additives including ultraviolet light stabilizers, antioxidants and antistatic agents. Previously known as Solvay / Cytec.",
             website: "https://www.syensqo.com",
             contact: "+1 (312) 555-0156",
             hours: "9:00–17:00",
@@ -1438,7 +1443,7 @@
             booths: [515, 517, 616, 614],
             tagline: "Advanced materials for rotomolded products",
             description:
-              "Helps address real-world challenges in developing rotomolded products using advanced materials like RESILITY™ and REVOLOOP™.",
+              "Dow helps address the real-world challenges of developing rotomolded products that combine high-quality, durability, light weight, and reusability. Using advanced materials such as RESILITY™ Innovative Rotomolding Resins and REVOLOOP™ Recycled Plastics Resins – plus our exclusive, global network of technical experts, equipment, and testing capabilities – we can help you bring innovative, differentiated applications to market with increased efficiency, ease of use, and more.",
             website: "https://www.dow.com/rotomolding",
             contact: "+1 (312) 555-0157",
             hours: "10:00–17:00",
@@ -1449,7 +1454,7 @@
             booths: [516],
             tagline: "Solutions for today and tomorrow",
             description:
-              "Visionary partner creating solutions that help today and in the future.",
+              "At Chem-Trend, we are not simply a supplier. We are a visionary, working alongside you to create solutions that help you today and in the future. Our people begin each day focused on your business, your challenge, and your success.",
             website: "https://chemtrend.com/",
             contact: "+1 (312) 555-0158",
             hours: "9:00–16:00",
@@ -1460,7 +1465,7 @@
             booths: [518],
             tagline: "Permanent graphics made for roto molding",
             description:
-              "Over 40 years delivering permanent mono-material graphics built specifically for roto molding.",
+              "Mold In Graphic Systems (MIGS) delivers permanent mono material graphics built specifically for the roto molding process. Applied during molding or after production, MIGS graphics become part of the polyethylene product itself—eliminating peeling labels and secondary finishing steps. For over 40 years, roto molders and product manufacturers have used MIGS to create durable, high-quality products built for real-world environments.",
             website: "https://moldingraphics.com/",
             contact: "+1 (312) 555-0159",
             hours: "10:00–16:00",
@@ -1471,7 +1476,7 @@
             booths: [519],
             tagline: "Rotational moulds, fuel and water tanks",
             description:
-              "OEM manufacturer of rotational moulds and rotomolding products such as fuel and water tanks.",
+              "Jiangsu Youge Mould Co., Ltd is an OEM manufacturer which professional in Rotational moulds and Rotomolding products, factory located in Nantong city. Youge factory focus in rotomolding engineering vehicle fuel tanks, water tanks, cleaning and environmental protection equipment, amusement equipment, outdoor furniture, kayaks, pontoons, transportation facilities, agricultural machinery parts, cold-chain insulation boxes and other rotomold products.",
             website: "http://www.ygroto.com/wap/en/",
             contact: "+1 (312) 555-0160",
             hours: "9:00–17:00",
@@ -1482,7 +1487,7 @@
             booths: [520],
             tagline: "Mold release agents since 1979",
             description:
-              "Distribution of specialty chemicals since 1954 and production of mold release agents since 1979.",
+              "Since year 1954 distribution and sale of specialty chemicals for liquid and powder coatings, printing inks, adhesives, rubber and plastic compounds. Since year 1979 production and sale of mold release agents for rubber and elastomeric compounds, PU foams, composites, thermoplastic and thermosetting polymers. Certifications The company F.IN.CO has established and applies a quality management system certified according to ISO 9001:2015.",
             website: "https://www.fincosrl.it/",
             contact: "+1 (312) 555-0161",
             hours: "9:00–17:00",
@@ -1493,7 +1498,7 @@
             booths: [523],
             tagline: "25+ years of rotomolding materials",
             description:
-              "Over 25 years working exclusively for the rotomolding industry as one of the world's largest manufacturers.",
+              "For over 25 years, RotoPolymers has worked exclusively for the rotomolding industry. We are one of the world’s largest manufacturers of natural rotomolding resins and compounds.",
             website: "https://www.rotopolymers.com/",
             contact: "+1 (312) 555-0162",
             hours: "10:00–17:00",
@@ -1504,7 +1509,7 @@
             booths: [526],
             tagline: "Turnkey recycling and material systems",
             description:
-              "Turnkey rotomolding solutions: recycling and virgin material systems with automation.",
+              "WANROOETECH delivers turnkey rotomolding solutions: recycling (shred/crush/grind/pulverize) and virgin material systems (robotic bag opening, auto-pulverizing, mixing, rotomolders). Output: MAX: 1500 kg/h. Our unmanned automation line (bag opening → pulverizing → weighing/packaging) hits 1500–2000 kg/h for large processors. New double-disc pulverizer: servo direct-drive saves 30%+ energy; air-cooled discs lift output; tungsten carbide blades last 3–5x longer. Compounding line: optimized screw + servo motors cut energy 25%+.",
             website: "https://www.wanrooetech-pulverizer.com",
             contact: "+1 (312) 555-0163",
             hours: "9:00–16:00",
@@ -1515,7 +1520,7 @@
             booths: [527],
             tagline: "Molds, machinery and one-stop services",
             description:
-              "In-house mold factory offering quality molds, machinery inspection, and one-stop rotomolding services.",
+              "Own mold factory, can offer good quality molds, Full experience, we can offer you and inspect for you almost any machinery for rotomolding procee. One stop station service, reasonable price, trustable business partner, serious working attitude, we will be your best cooperation friend in China.",
             website: "http://www.yisongmould.com/",
             contact: "+1 (312) 555-0164",
             hours: "10:00–16:00",
@@ -1526,7 +1531,7 @@
             booths: [603],
             tagline: "Foaming agents for rotomolding",
             description:
-              "Specializes in high-performance chemical foaming agents tailored for the rotational molding industry.",
+              "Bergen International LLC specializes in high-performance chemical foaming agents tailored for the rotational molding industry. Our innovative solutions optimize production efficiency and product quality, ensuring lightweight and durable plastic components for diverse applications worldwide.",
             website: "https://bergeninternational.com/",
             contact: "+1 (312) 555-0165",
             hours: "9:00–17:00",
@@ -1537,7 +1542,7 @@
             booths: [606],
             tagline: "ExxonMobil rotomolding polyethylene",
             description:
-              "Branded prime distributor of ExxonMobil rotational molding polyethylene products.",
+              "Quantum Polymers is a Branded Prime Distributor of Exxon Mobil rotational molding polyethylene products. In combination with our excellent customer service, these high-quality products will allow our customers to innovate with confidence. Roto Resins: LLDPE & HDPE (Pellets & Powder)",
             website: "https://quantumpolymers.com/",
             contact: "+1 (312) 555-0166",
             hours: "9:00–17:00",
@@ -1548,7 +1553,7 @@
             booths: [608],
             tagline: "Compounds and consulting from Mexico",
             description:
-              "A 100% Mexican company serving the rotational molding industry through compound sales and consultancy.",
+              "We are a 100% Mexican company and are part of Grupo RP (Recubrimientos Plasticos), a company with over 50 years of experience in the plastic industry. Our main objective is to serve the rotational molding industry through the sale and specialized consultancy of compounds and services for our clients. We are committed to the quality of our products and have strategic alliances with our suppliers to ensure a consistent supply of resins.",
             website: "https://krompacmx.com/eng/",
             contact: "+1 (312) 555-0167",
             hours: "10:00–17:00",
@@ -1569,7 +1574,7 @@
             booths: [612],
             tagline: "Machines and moulds for 95+ countries",
             description:
-              "Rotational moulding machine and moulds manufacturer serving 95+ countries for 42 years.",
+              "Asia’s No 1 Rotational Moulding Machine and Moulds Manufacturer. Based in India. Serving industry for 42 years with exports to 95+ countries. Carousal/shuttle type Machine up to 6 Mtr Oven Size. Moulds – Sheet Metal Fabricated and Fully Machined Grinding Mill for Polyethylene 100-500 kg/hr.",
             website: "https://www.naroto.com/",
             contact: "+1 (312) 555-0169",
             hours: "10:00–16:00",
@@ -1580,7 +1585,7 @@
             booths: [613, 615],
             tagline: "Packing material for better airflow",
             description:
-              "New-to-market packing material that improves airflow and reduces defects in molding.",
+              "Our exclusive new-to-market solution, RotoMesh, is a packing material that helps molders vent more reliably and efficiently by improving airflow. Less pressure, controlled release between heat and cooling results in fewer defects — saving companies from costly scrap and rework. Beyond materials, we serve as true partners, offering concierge-style support, tailored solutions, and a commitment to keeping your production running smoothly. Whether you need trusted components, supply chain confidence, or industry-specific insight, ATHENA is here to deliver.",
             website: "https://athenamechanicalsupply.com/",
             contact: "+1 (312) 555-0170",
             hours: "9:00–17:00",
@@ -1591,7 +1596,7 @@
             booths: [618],
             tagline: "Formulated polymers and dry color",
             description:
-              "Formulated polymer solutions backed by 100 years of expertise, including a dry color portfolio.",
+              "Teknor Apex is a trusted partner who provides formulated polymer solutions with 100 years of expertise. Our expansive dry color portfolio is aligned to the requirements of rotational and injection molding processes. Our team of experts is available to assist with technical and processing challenges.",
             website: "https://www.teknorapex.com/",
             contact: "+1 (312) 555-0171",
             hours: "9:00–17:00",
@@ -1602,7 +1607,7 @@
             booths: [621],
             tagline: "Rotational molding molds and solutions",
             description:
-              "Founded in 2015, specializes in the design and manufacturing of rotational molding molds and integrated solutions.",
+              "Founded in 2015, Jiangsu Zhroto Mould Co., Ltd. is a professional enterprise specializing in the design and manufacturing of rotational molding molds, rotomolded product processing, and integrated technical solutions.",
             website: "https://www.zhroto.com/",
             contact: "+1 (312) 555-0172",
             hours: "10:00–17:00",
@@ -1613,7 +1618,7 @@
             booths: [624, 626],
             tagline: "Rotomolding moulds and products",
             description:
-              "Professional manufacturer of rotomolding moulds and products, from external design to production.",
+              "Our company is a professional manufacturer of Rotomolding mold molds and products for external design, manufacturing, production, and sales. The company adheres to the principle of high quality, low price, and win-win cooperation; Service oriented and integrity first as the philosophy; In the short term since the establishment of our company, our Rotomolding mold molds and products have been sold to many domestic and foreign markets.",
             website: "https://www.youngmolding.com/",
             contact: "+1 (312) 555-0173",
             hours: "9:00–16:00",
@@ -1624,7 +1629,7 @@
             booths: [625, 627],
             tagline: "Injection-molded products since 1988",
             description:
-              "An industry leader since 1988, producing high-quality injection-molded products for diverse markets.",
+              "Since 1988, Kemflo has been an industry leader in producing high-quality injection-molded products. Our reach extends to diverse markets, including agricultural, industrial, chemical and construction. As a leading expert in engineered thermoplastic resins, we provide customized solutions to clients.",
             website: "https://kemflocanada.ca/",
             contact: "+1 (312) 555-0174",
             hours: "10:00–16:00",
@@ -1635,7 +1640,7 @@
             booths: [],
             tagline: "Teflon, powder coating and specialty finishes",
             description:
-              "Applies high-quality Teflon™, powder coating, and specialty surface finishes.",
+              "We apply high-quality Teflon™, powder coating, and specialty surface finishes to aluminum, zinc, iron, and steel for industries including aerospace, automotive, mining, transportation, manufacturing, packaging, printing, confectionaries, food processing, agriculture, waterworks, and oil & gas.",
             website: "https://protekcoatings.com/",
             contact: "+1 (312) 555-0175",
             hours: "9:00–17:00",
@@ -1646,7 +1651,7 @@
             booths: [],
             tagline: "Tailored powder processing",
             description:
-              "Tailored powder manufacturing and processing solutions built on a reputation for integrity.",
+              "At Specialty Powders , we do more than supply powders—we provide tailored solutions that help your business succeed. Over the years, we’ve built a reputation as a trusted partner in custom powder manufacturing and powder processing, with our focus always on people, integrity, and doing things right.",
             website: "https://specialtypowders.com/",
             contact: "+1 (312) 555-0176",
             hours: "9:00–17:00",
@@ -1657,7 +1662,7 @@
             booths: [],
             tagline: "Machines and moulds for 70+ countries",
             description:
-              "Manufacturer of rotational moulding machines and moulds, with 500+ customers in 70+ countries.",
+              "Vinodrai Engineers Pvt. Ltd. is a a specialist manufacturer and global supplier of rotational moulding machines, moulds & custom rotational moulding services from India. We have 500+ satisfied customers in 70+ countries and have a significant share in the domestic market as well. We offer a wide range of bi-axial Rotational moulding machines including EN-Series Machines, Clamshell Series, 3 Arm and 4 Arm Machines, and Duroline Series machines. We also supply rotational moulding moulds(Sheetmetal, MS/SS CNC machined & Aluminium CNC machined), ancillary machines, turn-key projects and custom rotational moulding services. We are your one stop supplier for Rotational moulding right from design of the product to final product.",
             website: "https://vinodrai.com/",
             contact: "+1 (312) 555-0177",
             hours: "10:00–17:00",
@@ -1824,22 +1829,24 @@
         hy = OY - 24,
         wallX = colX(COLS);
       let svgStr = `<svg xmlns="http://www.w3.org/2000/svg" id="svg"><g id="world">
-  <rect class="hall" x="${hx}" y="${hy}" width="${wallX - hx}" height="${
-        rowY(ROWS) + 64 - hy
-      }" rx="16"/>
-  <line class="wall" x1="${wallX}" y1="${hy}" x2="${wallX}" y2="${
+              <rect class="hall" x="${hx}" y="${hy}" width="${
+        wallX - hx
+      }" height="${rowY(ROWS) + 64 - hy}" rx="16"/>
+              <line class="wall" x1="${wallX}" y1="${hy}" x2="${wallX}" y2="${
         rowY(ROWS) + 64
       }"/>
-  <rect class="theater" x="${hx}" y="${hy}" width="${
+              <rect class="theater" x="${hx}" y="${hy}" width="${
         colX(th.col + th.cols) - hx
       }" height="${rowY(th.row + th.rows) - 16 - hy}" rx="16"/>
-  <text class="theater-label" x="${(hx + colX(th.col + th.cols)) / 2}" y="${
-        (hy + rowY(th.row + th.rows) - 16) / 2 + 6
-      }">${th.label}</text>
-  <line class="door" x1="${W / 2 - 60}" y1="${rowY(ROWS) + 64}" x2="${
-        W / 2 + 60
-      }" y2="${rowY(ROWS) + 64}"/>
-  <text class="entrance" x="${W / 2}" y="${
+              <text class="theater-label" x="${
+                (hx + colX(th.col + th.cols)) / 2
+              }" y="${(hy + rowY(th.row + th.rows) - 16) / 2 + 6}">${
+        th.label
+      }</text>
+              <line class="door" x1="${W / 2 - 60}" y1="${
+        rowY(ROWS) + 64
+      }" x2="${W / 2 + 60}" y2="${rowY(ROWS) + 64}"/>
+              <text class="entrance" x="${W / 2}" y="${
         rowY(ROWS) + 92
       }">Main entrance</text>`;
       for (const [x, y] of hall.pillars)
@@ -1854,8 +1861,8 @@
             b
           )}${boothLabel(b)}</g>`;
       svgStr += `<g id="pin" opacity="0"><circle class="ring" cx="0" cy="0" r="18"/>
-  <path class="body" d="M0 0c-2-9-12-13-12-23a12 12 0 0 1 24 0c0 10-10 14-12 23z"/>
-  <circle cx="0" cy="-23" r="4.5" fill="#fff"/></g></g></svg>`;
+              <path class="body" d="M0 0c-2-9-12-13-12-23a12 12 0 0 1 24 0c0 10-10 14-12 23z"/>
+              <circle cx="0" cy="-23" r="4.5" fill="#fff"/></g></g></svg>`;
       mapEl.innerHTML = svgStr;
       const svg = document.getElementById("svg"),
         world = document.getElementById("world"),
@@ -2185,35 +2192,37 @@
       }
       function renderDetail(t) {
         body.innerHTML = `<div class="detail">
-    <div class="d-top"><span class="badge">${
-      t.label
-    }</span><button class="link" id="back">All exhibitors</button></div>
-    <h2>${t.name}</h2>
-    <p class="tagline">${t.tagline}</p>
-    <span class="cat">${t.category}</span>
-    <dl class="facts">
-      <div><dt>${t.booths.length > 1 ? "Booths" : "Booth"}</dt><dd>${
+                <div class="d-top"><span class="badge">${
+                  t.label
+                }</span><button class="link" id="back">All exhibitors</button></div>
+                <h2>${t.name}</h2>
+                <p class="tagline">${t.tagline}</p>
+                <span class="cat">${t.category}</span>
+                <dl class="facts">
+                  <div><dt>${
+                    t.booths.length > 1 ? "Booths" : "Booth"
+                  }</dt><dd>${
           t.booths.length ? t.booths.join(", ") : "To be announced"
         }</dd></div>
-      <div><dt>Open</dt><dd>${t.hours}</dd></div>
-    </dl>
-    <p class="desc">${t.description}</p>
-    <div class="contact">
-      <a href="${t.website}" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
-        <span><small>Website</small>${t.website
-          .replace(/^https?:\/\/(www\.)?/, "")
-          .replace(/\/$/, "")}</span></a>
-      <a href="tel:${t.contact.replace(/[^\d+]/g, "")}">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-        <span><small>Contact</small>${t.contact}</span></a>
-    </div>
-    <p class="note">Phone number and hours are sample data.</p>
-    ${
-      t.cells.length
-        ? `<button class="primary" id="center">Center on map</button>`
-        : ""
-    }</div>`;
+                  <div><dt>Open</dt><dd>${t.hours}</dd></div>
+                </dl>
+                <p class="desc">${t.description}</p>
+                <div class="contact">
+                  <a href="${t.website}" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
+                    <span><small>Website</small>${t.website
+                      .replace(/^https?:\/\/(www\.)?/, "")
+                      .replace(/\/$/, "")}</span></a>
+                  <a href="tel:${t.contact.replace(/[^\d+]/g, "")}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                    <span><small>Contact</small>${t.contact}</span></a>
+                </div>
+                <p class="note">Phone number and hours are sample data.</p>
+                ${
+                  t.cells.length
+                    ? `<button class="primary" id="center">Center on map</button>`
+                    : ""
+                }</div>`;
         body.scrollTop = 0;
         document.getElementById("back").onclick = clearSelection;
         if (t.cells.length)
@@ -2224,15 +2233,15 @@
         body.innerHTML = `<h2>${hall.name}</h2><p class="lead">${
           booths.length
         } exhibitors. Search or tap a booth to see details.</p>
-    <p class="note">Unofficial mockup. Exhibitor details from <a href="https://rotoplas.org/exhibitors/" target="_blank" rel="noopener">rotoplas.org</a>.</p>
-    <div class="list">${sorted
-      .map(
-        (
-          t
-        ) => `<button class="row" data-id="${t.id}"><span class="badge">${t.label}</span>
-      <span class="who"><strong>${t.name}</strong><span>${t.category}</span></span></button>`
-      )
-      .join("")}</div>`;
+                <p class="note">Unofficial mockup. Exhibitor details from <a href="https://rotoplas.org/exhibitors/" target="_blank" rel="noopener">rotoplas.org</a>.</p>
+                <div class="list">${sorted
+                  .map(
+                    (
+                      t
+                    ) => `<button class="row" data-id="${t.id}"><span class="badge">${t.label}</span>
+                  <span class="who"><strong>${t.name}</strong><span>${t.category}</span></span></button>`
+                  )
+                  .join("")}</div>`;
         body
           .querySelectorAll(".row")
           .forEach((b) => (b.onclick = () => select(b.dataset.id)));
@@ -2281,7 +2290,7 @@
                 (t, i) => `<button data-id="${t.id}" class="${
                   i === 0 ? "active" : ""
                 }"><span class="badge">${t.label}</span>
-        <span class="who"><strong>${t.name}</strong><span>${
+                    <span class="who"><strong>${t.name}</strong><span>${
                   t.category
                 }</span></span></button>`
               )
